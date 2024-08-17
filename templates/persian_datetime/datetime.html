@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Home</title>
+</head>
+<body>
+    <div class="header">
+        <div class="head-title"><h1>منو خرجام</h1></div>
+        <p id="current-date">>{{ persian_date }}</p>
+        <p><span id="current-time">{{ persian_time }}</span></p>
+    </div>
+</body>
+<script>
+    const updateClock = () => {
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('fa-IR');
+        document.getElementById('current-time').textContent = new Date().toLocaleTimeString('fa-IR');
+    };
+
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
+</html>

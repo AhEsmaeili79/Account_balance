@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Qs Iranyekan';
+    src: url('../fonts/Qs_Iranyekan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+    font-family: "Qs Iranyekan", Arial, sans-serif;
+}
+
+/* Basic styles for body */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensure proper box sizing */
+}
+
+body {
+    font-family: "Qs Iranyekan", Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+    line-height: 1.6; /* Improved readability */
+}
+
+.header p{
+    margin-right: 50px;
+}
