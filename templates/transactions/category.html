@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="">
+    {% if category %}
+    {% for cat in category %}
+        <p>{{ cat.category_name }}</p>
+    {% endfor %}
+    {% endif%}
+    <form action="{% url 'add_category' %}" method="post">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+        {% else %}
+            <input type="hidden" name="user_id" value="0">
+        {% endif %}
+        <input type="text" name="cat_name" id="cat_name">
+        <hr>
+        <input type="submit" value="Send" class="btn btn-block btn-secondary">
+    </form>
+    
+  {% include 'partials/_alerts.html' %}
+
+</div>
+{% endblock %}

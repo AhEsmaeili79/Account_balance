@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for blc in balance %}
+    <div class="container">
+        <h1>{{ blc.balance }}</h1>
+    </div>
+    {% endfor %}
+{% endblock %}

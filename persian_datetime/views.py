@@ -7,4 +7,4 @@ def persian_datetime_view(request):
         'persian_date': persian_date,
         'persian_time': persian_time,
     }
-    return render(request, 'persian_datetime/datetime.html', context)
+    return render(request, 'partials/_topbar.html', context)
