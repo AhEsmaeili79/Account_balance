@@ -82,8 +82,11 @@ WSGI_APPLICATION = "Account_balance.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": 'account_blnce',
+        'USER' : 'postgres',
+        'PASSWORD' : '137919',
+        'HOST' : 'localhost',
     }
 }
 
