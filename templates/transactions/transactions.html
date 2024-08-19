@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-
-<div class="container">
+ <link rel="stylesheet" href="{% static 'css/jalalidatepicker.min.css' %}">
+ <script
+ type="text/javascript"
+ src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"
+></script>
+ <div class="container">
     <div class="transactions-container" id="transactions-container">
         <h2 class="text-center mb-4">تراکنش‌ها</h2>
 
@@ -55,39 +59,42 @@
 
         <!-- Add Transaction Form -->
         <div class="transaction-form" id="transactionForm">
-            <h4 class="text-center">افزودن تراکنش جدید</h4>
-            <form action="/add-transaction" method="post">
-                <div class="form-group">
-                    <label for="amount">مبلغ</label>
-                    <input type="number" class="form-control" id="amount" name="amount" placeholder="مبلغ تراکنش" required>
-                </div>
-                <div class="form-group">
-                    <label for="transactionType">نوع تراکنش</label>
-                    <select class="form-control" id="transactionType" name="transactionType" required>
-                        <option value="income">درآمد</option>
-                        <option value="outcome">هزینه</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="transactionDate">تاریخ</label>
-                    <input type="date" class="form-control" id="transactionDate" name="transactionDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="transactionTime">زمان</label>
-                    <input type="time" class="form-control" id="transactionTime" name="transactionTime" required>
-                </div>
-                <div class="form-group">
-                    <label for="category">دسته‌بندی</label>
-                    <input type="text" class="form-control" id="category" name="category" placeholder="دسته‌بندی تراکنش" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">توضیحات</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="توضیحات تراکنش"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">ذخیره تراکنش</button>
-            </form>
+            <div id="transaction-Date-time">
+                <h4 class="text-center">افزودن تراکنش جدید</h4>
+                <form action="/add-transaction" method="post">
+                    <div class="form-group">
+                        <label for="amount">مبلغ</label>
+                        <input type="number" class="form-control" id="amount" name="amount" placeholder="مبلغ تراکنش" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionType">نوع تراکنش</label>
+                        <select class="form-control" id="transactionType" name="transactionType" required>
+                            <option value="income">درآمد</option>
+                            <option value="outcome">هزینه</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionDate">تاریخ</label>
+                        <input type="text" class="form-control" id="transactionDate" name="transactionDate" data-jdp data-jdp-max-date="today"placeholder="نمایش تاریخ تا امروز"data-jdp-only-date required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="transactionTime">زمان</label>
+                        <input type="text" class="form-control" id="transactionTime" name="transactionTime" data-jdp placeholder="امکان انتخاب فقط زمان" data-jdp-only-time required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">دسته‌بندی</label>
+                        <input type="text" class="form-control" id="category" name="category" placeholder="دسته‌بندی تراکنش" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">توضیحات</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="توضیحات تراکنش"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">ذخیره تراکنش</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
+<script src="{% static 'js/script.min.js' %}"></script>
 {% endblock %}
