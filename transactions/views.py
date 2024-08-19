@@ -3,7 +3,15 @@ from django.contrib import messages
 from .models import Category, Transactions
 
 
+# change format of date and time to shamsi
+def format_date_time(transaction):
+    if transaction.transaction_date:
+        transaction.transaction_date = transaction.transaction_date.strftime('%Y/%m/%d')
+    if transaction.transaction_time:
+        transaction.transaction_time = transaction.transaction_time.strftime('%H:%M')
+    return transaction
 
+# category view 
 def show_category(request):
     context = {}
     if request.user.is_authenticated:
@@ -29,6 +37,7 @@ def show_category(request):
     
     return render(request, 'transactions/category.html', context)
 
+# transaction view
 def transaction(request):
     context = {}
     if request.user.is_authenticated:
@@ -62,12 +71,10 @@ def transaction(request):
         transaction_income = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='income')
         category_list = Category.objects.filter(user_id=0) | Category.objects.filter(user_id=request.user.id)
 
-        for txn in transaction_outcome:
-            txn.transaction_date = txn.transaction_date.strftime('%Y/%m/%d') if txn.transaction_date else None
-            txn.transaction_time = txn.transaction_time.strftime('%H:%M') if txn.transaction_time else None
-        for txn in transaction_income:
-            txn.transaction_date = txn.transaction_date.strftime('%Y/%m/%d') if txn.transaction_date else None
-            txn.transaction_time = txn.transaction_time.strftime('%H:%M') if txn.transaction_time else None
+       # Format dates and times for display
+        transaction_outcome = [format_date_time(txn) for txn in transaction_outcome]
+        transaction_income = [format_date_time(txn) for txn in transaction_income]
+
         context = {
             'transaction_outcome': transaction_outcome,
             'transaction_income': transaction_income,
