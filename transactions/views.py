@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
 from .models import Category
 from django.contrib import messages
+from .models import Transactions
+
 # Create your views here.
+
 
 def show_category(request):
     if request.user.is_authenticated:
@@ -28,4 +31,24 @@ def show_category(request):
     return render(request,'transactions/category.html',context)
 
 def transaction(request):
-    return render(request,'transactions/transactions.html')
+    # if request.method == 'POST':
+    #     # amount = 
+    #     # transaction_type = 
+    #     # transaction_date = 
+    #     # transaction_time = 
+    #     # transaction_category = 
+    #     # transaction_account = 
+    #     # description =
+    #     pass
+    # else:
+    #     return redirect('transactions')
+    
+    transaction_outcome = Transactions.objects.all().filter(user_id=request.user.id,transaction_type='outcome')
+    transaction_income = Transactions.objects.all().filter(user_id=request.user.id,transaction_type='income')
+
+    context = {
+        'transaction_outcome': transaction_outcome,
+        'transaction_income': transaction_income
+    }
+    print(context['transaction_income'])
+    return render(request,'transactions/transactions.html',context)

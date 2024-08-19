@@ -13,10 +13,10 @@ def LoginPage(request):
         user = auth.authenticate(username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            messages.success(request,'you are now logged in')
+            messages.success(request,'با موفقیت وارد شدید')
             return redirect('index')
         else:
-            messages.error(request,"invalid credential")
+            messages.error(request,"ورود ناموفق")
             return redirect('login')
     else:
         return render(request,'accounts/login.html')
@@ -32,23 +32,23 @@ def SignupPage(request):
         
         if password == password2:
             if not username:
-                messages.error(request, 'username cannot be empty.')
+                messages.error(request, 'نام کاربری را وارد کنید')
             elif User.objects.filter(username=username).exists():
-                messages.error(request, 'username have already exsits.')
+                messages.error(request, 'نام کاربری وجود دارد با نام کاربری دیگری امتحان کنید')
             elif User.objects.filter(email=email).exists():
-                messages.error(request, 'email have already exsits.')
+                messages.error(request, 'ایمیل وجود دارد با یک ایمیل دیگر ثبت نام کنید')
             else:
                 user = User.objects.create_user(username=username,password=password,first_name=firstname,last_name=lastname,email=email)
                 user.save()
-                messages.success(request,'you have regiterd')  
+                messages.success(request,'ثبت نام شما با موفقیت انجام شد')  
                 return redirect('index')
         else:
-            messages.error(request, 'Password does not match.') 
+            messages.error(request, 'کلمه عبور مطابقت ندارد') 
     else:
         return render(request,'accounts/signup.html')
 
 
 def logout_view(request):
     logout(request)
-    messages.success(request,"You are logged out")
+    messages.success(request,"دوباره به ما سر بزنید")
     return redirect('login')

@@ -17,42 +17,32 @@
         </div>
 
         <!-- Income Transaction Samples -->
-        <div class="transaction-card income" id="income1">
-            <p><strong>مبلغ: </strong> 500000 تومان</p>
-            <p><strong>نوع تراکنش: </strong> درآمد</p>
-            <p><strong>تاریخ: </strong> 1403/05/25</p>
-            <p><strong>زمان: </strong> 14:30</p>
-            <p><strong>دسته‌بندی: </strong> حقوق</p>
-            <p><strong>توضیحات: </strong> دریافت حقوق ماهانه</p>
-        </div>
+        {% if transaction_income %}
+            {% for tr_income in transaction_income %}
+                <div class="transaction-card income" id="income1">
+                    <p><strong>مبلغ: </strong>{{ tr_income.amount }}</p>
+                    <p><strong>نوع تراکنش: </strong>{{ tr_income.transaction_type }}</p>
+                    <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
+                    <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
+                    <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
+                    <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
 
-        <div class="transaction-card income" id="income2">
-            <p><strong>مبلغ: </strong> 200000 تومان</p>
-            <p><strong>نوع تراکنش: </strong> درآمد</p>
-            <p><strong>تاریخ: </strong> 1403/05/20</p>
-            <p><strong>زمان: </strong> 10:15</p>
-            <p><strong>دسته‌بندی: </strong> هدیه</p>
-            <p><strong>توضیحات: </strong> هدیه تولد از پدر</p>
-        </div>
-
-        <!-- Outcome Transaction Samples -->
-        <div class="transaction-card outcome" id="outcome1">
-            <p><strong>مبلغ: </strong> 300000 تومان</p>
-            <p><strong>نوع تراکنش: </strong> هزینه</p>
-            <p><strong>تاریخ: </strong> 1403/05/22</p>
-            <p><strong>زمان: </strong> 18:45</p>
-            <p><strong>دسته‌بندی: </strong> خرید</p>
-            <p><strong>توضیحات: </strong> خرید لپ‌تاپ جدید</p>
-        </div>
-
-        <div class="transaction-card outcome" id="outcome2">
-            <p><strong>مبلغ: </strong> 100000 تومان</p>
-            <p><strong>نوع تراکنش: </strong> هزینه</p>
-            <p><strong>تاریخ: </strong> 1403/05/15</p>
-            <p><strong>زمان: </strong> 12:00</p>
-            <p><strong>دسته‌بندی: </strong> تفریح</p>
-            <p><strong>توضیحات: </strong> خرید بلیط کنسرت</p>
-        </div>
+        {% if transaction_outcome %}
+            {% for tr_income in transaction_outcome %}
+                <!-- Outcome Transaction Samples -->
+                <div class="transaction-card outcome" id="outcome1">
+                    <p><strong>مبلغ: </strong>{{ tr_income.amount }}</p>
+                    <p><strong>نوع تراکنش: </strong>{{ tr_income.transaction_type }}</p>
+                    <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
+                    <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
+                    <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
+                    <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
 
         <!-- Add Transaction Button -->
         <button class="btn btn-success add-transaction-btn" id="addTransactionBtn">افزودن تراکنش</button>
@@ -61,7 +51,7 @@
         <div class="transaction-form" id="transactionForm">
             <div id="transaction-Date-time">
                 <h4 class="text-center">افزودن تراکنش جدید</h4>
-                <form action="/add-transaction" method="post">
+                <form action="{ url 'transactions' }" method="post">
                     <div class="form-group">
                         <label for="amount">مبلغ</label>
                         <input type="number" class="form-control" id="amount" name="amount" placeholder="مبلغ تراکنش" required>
