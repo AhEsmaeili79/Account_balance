@@ -3,7 +3,7 @@
         <div class="user-actions">
             {% if user.is_authenticated %}
                 <a href="#" id="logoutLink">مدیریت پروفایل</a>
-                <a href="#" id="logoutLink">خروج</a>
+                <a href="{% url 'logout' %}" id="logoutLink">خروج</a>
             {% else %}
                 <a href="{% url 'login' %}" id="loginLink">ورود</a>
                 <a href="{% url 'signup' %}" id="signupLink">ثبت نام</a>

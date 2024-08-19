@@ -1,22 +1,21 @@
-// const date = new Date();
-// document.querySelector('.year').innerHTML = date.getFullYear();
-
-// setTimeout(function(){
-//     $('#message').fadeOut('slow');
-// }, 3000);
-
 document.addEventListener('DOMContentLoaded', () => {
+
+if (document.getElementById('message')) {
+    setTimeout(function(){
+        $('#message').fadeOut('slow');
+    }, 3000);
+}
 
 const updateClock = () => {
     document.getElementById('current-date').textContent = new Date().toLocaleDateString('fa-IR');
     document.getElementById('current-time').textContent = new Date().toLocaleTimeString('fa-IR');
 };
 
-
 updateClock();
 setInterval(updateClock, 1000);
 
 
+if (document.getElementById('chartPage')) {
     // Sample data for the chart
     const months = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
     const incomeData = [12000, 15000, 17000, 20000, 21000, 22000, 25000, 27000, 29000, 30000, 31000, 33000];
@@ -37,6 +36,8 @@ setInterval(updateClock, 1000);
             }]
         },
         options: {
+            responsive: true,  // Make chart responsive
+            maintainAspectRatio: false,  // Allow chart to change aspect ratio based on container
             scales: {
                 y: {
                     beginAtZero: true,
@@ -87,4 +88,30 @@ setInterval(updateClock, 1000);
             months.map((month, index) => `<div class="card"><h5>${month}</h5><p>مقدار: ${outcomeData[index]} تومان</p></div>`).join('') +
             '</div>';
     });
+}
+// transaction
+    if (document.getElementById('transactions-container')) {
+        document.getElementById('showIncome').addEventListener('click', function() {
+            document.querySelectorAll('.transaction-card').forEach(function(card) {
+                card.style.display = 'none';
+            });
+            document.querySelectorAll('.income').forEach(function(card) {
+                card.style.display = 'block';
+            });
+        });
+
+        document.getElementById('showOutcome').addEventListener('click', function() {
+            document.querySelectorAll('.transaction-card').forEach(function(card) {
+                card.style.display = 'none';
+            });
+            document.querySelectorAll('.outcome').forEach(function(card) {
+                card.style.display = 'block';
+            });
+        });
+
+        document.getElementById('addTransactionBtn').addEventListener('click', function() {
+            var form = document.getElementById('transactionForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        });
+    }
 });

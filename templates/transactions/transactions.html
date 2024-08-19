@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="transactions-container" id="transactions-container">
+        <h2 class="text-center mb-4">تراکنش‌ها</h2>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="btn btn-primary" id="showIncome">درآمدها</button>
+            <button class="btn btn-secondary" id="showOutcome">هزینه‌ها</button>
+        </div>
+
+        <!-- Income Transaction Samples -->
+        <div class="transaction-card income" id="income1">
+            <p><strong>مبلغ: </strong> 500000 تومان</p>
+            <p><strong>نوع تراکنش: </strong> درآمد</p>
+            <p><strong>تاریخ: </strong> 1403/05/25</p>
+            <p><strong>زمان: </strong> 14:30</p>
+            <p><strong>دسته‌بندی: </strong> حقوق</p>
+            <p><strong>توضیحات: </strong> دریافت حقوق ماهانه</p>
+        </div>
+
+        <div class="transaction-card income" id="income2">
+            <p><strong>مبلغ: </strong> 200000 تومان</p>
+            <p><strong>نوع تراکنش: </strong> درآمد</p>
+            <p><strong>تاریخ: </strong> 1403/05/20</p>
+            <p><strong>زمان: </strong> 10:15</p>
+            <p><strong>دسته‌بندی: </strong> هدیه</p>
+            <p><strong>توضیحات: </strong> هدیه تولد از پدر</p>
+        </div>
+
+        <!-- Outcome Transaction Samples -->
+        <div class="transaction-card outcome" id="outcome1">
+            <p><strong>مبلغ: </strong> 300000 تومان</p>
+            <p><strong>نوع تراکنش: </strong> هزینه</p>
+            <p><strong>تاریخ: </strong> 1403/05/22</p>
+            <p><strong>زمان: </strong> 18:45</p>
+            <p><strong>دسته‌بندی: </strong> خرید</p>
+            <p><strong>توضیحات: </strong> خرید لپ‌تاپ جدید</p>
+        </div>
+
+        <div class="transaction-card outcome" id="outcome2">
+            <p><strong>مبلغ: </strong> 100000 تومان</p>
+            <p><strong>نوع تراکنش: </strong> هزینه</p>
+            <p><strong>تاریخ: </strong> 1403/05/15</p>
+            <p><strong>زمان: </strong> 12:00</p>
+            <p><strong>دسته‌بندی: </strong> تفریح</p>
+            <p><strong>توضیحات: </strong> خرید بلیط کنسرت</p>
+        </div>
+
+        <!-- Add Transaction Button -->
+        <button class="btn btn-success add-transaction-btn" id="addTransactionBtn">افزودن تراکنش</button>
+
+        <!-- Add Transaction Form -->
+        <div class="transaction-form" id="transactionForm">
+            <h4 class="text-center">افزودن تراکنش جدید</h4>
+            <form action="/add-transaction" method="post">
+                <div class="form-group">
+                    <label for="amount">مبلغ</label>
+                    <input type="number" class="form-control" id="amount" name="amount" placeholder="مبلغ تراکنش" required>
+                </div>
+                <div class="form-group">
+                    <label for="transactionType">نوع تراکنش</label>
+                    <select class="form-control" id="transactionType" name="transactionType" required>
+                        <option value="income">درآمد</option>
+                        <option value="outcome">هزینه</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transactionDate">تاریخ</label>
+                    <input type="date" class="form-control" id="transactionDate" name="transactionDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="transactionTime">زمان</label>
+                    <input type="time" class="form-control" id="transactionTime" name="transactionTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">دسته‌بندی</label>
+                    <input type="text" class="form-control" id="category" name="category" placeholder="دسته‌بندی تراکنش" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">توضیحات</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="توضیحات تراکنش"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">ذخیره تراکنش</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

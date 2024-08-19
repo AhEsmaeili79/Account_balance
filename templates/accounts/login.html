@@ -7,7 +7,8 @@
     {% else %}
         <div class="login-container">
             <h2 class="text-center mb-4">ورود به حساب</h2>
-            <form action="/login" method="post" class="login-form">
+            <form action="{% url 'login' %}" method="post" class="login-form">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="username">نام کاربری</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="نام کاربری خود را وارد کنید" required>

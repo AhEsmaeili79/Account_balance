@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for blc in balance %}
     <div class="container">
         <div class="content">
             <div class="welcome-message" id="welcomeMessage"> {{ user.username }} خوش آمدید  </div>
-            <div class="balance-display" id="balance">تراز حساب: {{ blc.balance }} تومان</div>
+            {% for blc in balance %}
+            <div class="balance-display" id="balance">تراز حساب: {{ blc.balance }} تومان</div> 
+            {% endfor %}
             <div class="button-group">
                 <button class="btn btn-primary" id="showIncome">نمایش درآمد</button>
                 <button class="btn btn-secondary" id="showOutcome">نمایش خرج</button>
@@ -13,5 +14,4 @@
             {% include 'partials/_chart.html' %}
         </div>
     </div>
-    {% endfor %}
 {% endblock %}

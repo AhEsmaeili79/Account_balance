@@ -26,3 +26,6 @@ def show_category(request):
         }
 
     return render(request,'transactions/category.html',context)
+
+def transaction(request):
+    return render(request,'transactions/transactions.html')
