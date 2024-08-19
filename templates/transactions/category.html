@@ -1,25 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="">
-    {% if category %}
-    {% for cat in category %}
-        <p>{{ cat.category_name }}</p>
-    {% endfor %}
-    {% endif%}
-    <form action="{% url 'add_category' %}" method="post">
-        {% csrf_token %}
-        {% if user.is_authenticated %}
-            <input type="hidden" name="user_id" value="{{ user.id }}">
-        {% else %}
-            <input type="hidden" name="user_id" value="0">
-        {% endif %}
-        <input type="text" name="cat_name" id="cat_name">
-        <hr>
-        <input type="submit" value="Send" class="btn btn-block btn-secondary">
-    </form>
-    
-  {% include 'partials/_alerts.html' %}
+  
+<div class="container">
+    <div class="mt-10"</div>
+    <!-- Default Categories -->
+    <div class="category-container">
+        <h2>دسته‌بندی‌های پیش‌فرض</h2>
+        {% if category %}
+            {% for cat in category %}
+                <div class="category-card">
+                    <span>{{ cat.category_name }}</span>
+                </div>
+            {% endfor %}
+        {% endif%}
+    </div>
 
+    <!-- Add New Category Form -->
+    <div class="category-form ">
+        <h2 class="category-container">اضافه کردن دسته‌بندی جدید</h2>
+        {% if user.is_authenticated %}
+        <form action="{% url 'add_category' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <input type="text" class="form-control d-inline-block w-75" name="cat_name" placeholder="نام دسته‌بندی جدید" required>
+            <button type="submit" class="btn btn-primary">اضافه کردن</button>
+        </form>
+        {% else %}
+        <p>برای اضافه کردن دسته بندی ثبت نام یا ورود کنید</p>
+        {% endif %}
+    </div>
+
+    {% include 'partials/_alerts.html' %}
+    <!-- User-Added Categories -->
+    <div class="category-container">
+        <h2>دسته‌بندی‌های اضافه‌شده توسط کاربر</h2>
+        <!-- Example User Added Category -->
+        {% if category_user %}
+            {% for cat in category_user %}
+                <div class="category-card">
+                    <span>{{ cat.category_name }}</span>
+                    <div>
+                        <button class="btn btn-warning btn-sm">ویرایش</button>
+                        <button class="btn btn-danger btn-sm">حذف</button>
+                    </div>    
+            </div>
+            {% endfor %}
+        {% endif%}
+    </div>
 </div>
 {% endblock %}

@@ -5233,6 +5233,10 @@ button.bg-dark:focus {
 .mx-5 {
   margin-left: 3rem !important; }
 
+.mt-10,
+.my-10 {
+  margin-top: 100px !important; }
+
 .p-0 {
   padding: 0 !important; }
 

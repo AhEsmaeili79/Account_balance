@@ -18,9 +18,11 @@ def show_category(request):
                 category.save()
                 return redirect('add_category')
     
-        category_list = Category.objects.all().filter(user_id=request.user.id) | Category.objects.filter(user_id=0)
+        category_list = Category.objects.filter(user_id=0)
+        category_user_add = Category.objects.all().filter(user_id=request.user.id)
         context = {
             'category' : category_list,
+            'category_user' : category_user_add
         }
 
     return render(request,'transactions/category.html',context)
