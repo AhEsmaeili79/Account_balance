@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "reports",
     "transactions",
     "persian_datetime",
+    "accounts",
 ]
 
 

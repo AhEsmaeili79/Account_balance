@@ -190,3 +190,66 @@ body {
 .category-form input {
     margin-right: 10px;
 }
+
+
+/* LoginPage */
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+.login-form button {
+    margin-top: 10px;
+}
+.text-center a {
+    color: #007bff;
+    text-decoration: none;
+}
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+/* signup Page */
+.signup-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.signup-form {
+    display: flex;
+    flex-direction: column;
+}
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.form-group label {
+    width: 150px;
+    text-align: right;
+}
+.form-group input {
+    flex: 1;
+}
+.signup-form button {
+    margin-top: 10px;
+}
+.text-center a {
+    color: #007bff;
+    text-decoration: none;
+}
+.text-center a:hover {
+    text-decoration: underline;
+}
