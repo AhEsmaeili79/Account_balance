@@ -25,3 +25,139 @@ body {
 .header p{
     margin-right: 50px;
 }
+
+/* chart */
+
+/* General Styles */
+body {
+    background-color: #f0f8ff;
+    font-family: 'Arial', sans-serif;
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+}
+
+.topbar {
+    background-color: #87cefa;
+    padding: 10px 0;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar .date-time {
+    font-size: 0.9em;
+}
+
+.topbar .user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.topbar .user-actions a {
+    color: #fff;
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.topbar .user-actions a:hover {
+    color: #ffeb3b;
+}
+
+
+.content {
+    text-align: center;
+}
+
+.welcome-message {
+    font-size: 1.5em;
+    color: #4682b4;
+    margin: 20px 0;
+    margin-top: 100px;
+    animation: fadeIn 2s;
+}
+
+.balance-display {
+    font-size: 2.5em;
+    color: #4682b4;
+    margin: 20px 0;
+    animation: zoomIn 1.5s;
+}
+
+.button-group {
+    margin: 20px 0;
+}
+
+.button-group .btn {
+    margin: 0 10px;
+}
+
+.chart-container {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 900px;
+    text-align: center;
+}
+
+.details-container {
+    margin-top: 20px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin: 10px;
+    padding: 15px;
+    width: 300px;
+    text-align: right;
+}
+
+.card h5 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin: 5px 0;
+}
+
+.footer {
+    background-color: #87cefa;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
