@@ -2,10 +2,8 @@
 {% load static %}
 {% block content %}
  <link rel="stylesheet" href="{% static 'css/jalalidatepicker.min.css' %}">
- <script
- type="text/javascript"
- src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"
-></script>
+ 
+
  <div class="container">
     <div class="transactions-container" id="transactions-container">
         <h2 class="text-center mb-4">تراکنش‌ها</h2>
@@ -20,8 +18,7 @@
         {% if transaction_income %}
             {% for tr_income in transaction_income %}
                 <div class="transaction-card income" id="income1">
-                    <p><strong>مبلغ: </strong>{{ tr_income.amount }}</p>
-                    <p><strong>نوع تراکنش: </strong>{{ tr_income.transaction_type }}</p>
+                    <p><strong>مبلغ: </strong>{{ tr_income.amount }} تومان</p>
                     <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
                     <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
                     <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
@@ -34,8 +31,7 @@
             {% for tr_income in transaction_outcome %}
                 <!-- Outcome Transaction Samples -->
                 <div class="transaction-card outcome" id="outcome1">
-                    <p><strong>مبلغ: </strong>{{ tr_income.amount }}</p>
-                    <p><strong>نوع تراکنش: </strong>{{ tr_income.transaction_type }}</p>
+                    <p><strong>مبلغ: </strong>{{ tr_income.amount }} تومان</p>
                     <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
                     <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
                     <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
@@ -51,7 +47,10 @@
         <div class="transaction-form" id="transactionForm">
             <div id="transaction-Date-time">
                 <h4 class="text-center">افزودن تراکنش جدید</h4>
-                <form action="{ url 'transactions' }" method="post">
+                {% if user.is_authenticated %}
+                <form action="{% url 'transactions' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
                     <div class="form-group">
                         <label for="amount">مبلغ</label>
                         <input type="number" class="form-control" id="amount" name="amount" placeholder="مبلغ تراکنش" required>
@@ -73,7 +72,13 @@
                     </div>
                     <div class="form-group">
                         <label for="category">دسته‌بندی</label>
-                        <input type="text" class="form-control" id="category" name="category" placeholder="دسته‌بندی تراکنش" required>
+                        <select class="form-control" id="category" name="category" required>
+                            {% if category %}
+                                {% for cat in category %}
+                                <option value="{{ cat.id }}">{{ cat.category_name }}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="description">توضیحات</label>
@@ -81,10 +86,15 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">ذخیره تراکنش</button>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
 <script src="{% static 'js/script.min.js' %}"></script>
+<script
+ type="text/javascript"
+ src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"
+></script>
 {% endblock %}
