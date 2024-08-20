@@ -7,68 +7,67 @@
 
         <!-- Year List -->
         <div class="report-item">
-            <button class="btn btn-secondary btn-block" type="button" data-target="#year2024">
-                <div class="report-header">
-                    <strong>سال 1393</strong>
-                </div>
-                <div class="transaction-summary">
-                    <div class="transaction-item">
-                        <p><strong>درآمد: </strong> 500000 تومان</p>
-                    </div>
-                    <div class="transaction-item">
-                        <p><strong>هزینه: </strong> 300000 تومان</p>
-                    </div>
-                </div>
-            </button>
-            <div id="year2024" class="collapse-content">
-                <div class="report-item mt-2">
-                    <button class="btn btn-warning btn-block" type="button" data-target="#month2024-01">
+            {% for year_data in report_data %}
+                {% if year_data %}
+                    <button class="btn btn-secondary btn-block" type="button" data-target="#year{{year_data.year}}">
                         <div class="report-header">
-                            <strong>فروردین</strong>
+                            <strong>سال {{year_data.year}}</strong>
                         </div>
                         <div class="transaction-summary">
                             <div class="transaction-item">
-                                <p><strong>درآمد: </strong> 500000 تومان</p>
+                                <p><strong>درآمد: </strong> {{ year_data.total_income }} تومان</p>
                             </div>
                             <div class="transaction-item">
-                                <p><strong>هزینه: </strong> 300000 تومان</p>
+                                <p><strong>هزینه: </strong> {{ year_data.total_outcome }} تومان</p>
                             </div>
                         </div>
                     </button>
-                    <div id="month2024-01" class="collapse-content">
-                        <div class="report-item mt-2">
-                            <button class="btn btn-info btn-block" type="button" data-target="#category2024-01-A">
-                                <div class="report-header">
-                                    دسته‌بندی A
+                    <div id="year{{year_data.year}}" class="collapse-content">
+                        {% for month_data in year_data.months %}
+                            {% if month_data %}
+                                <div class="report-item mt-2">
+                                    <button class="btn btn-warning btn-block" type="button" data-target="#{{month_data.month_name}}{{year_data.year}}-01">
+                                        <div class="report-header">
+                                            <strong>{{month_data.month_name}}</strong>
+                                        </div>
+                                        <div class="transaction-summary">
+                                            <div class="transaction-item">
+                                                <p><strong>درآمد: </strong> {{ month_data.total_income }} تومان</p>
+                                            </div>
+                                            <div class="transaction-item">
+                                                <p><strong>هزینه: </strong> {{ month_data.total_outcome }} تومان</p>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <div id="{{month_data.month_name}}{{year_data.year}}-01" class="collapse-content">
+                                        {% for category_data in month_data.categories %}
+                                            {% if category_data %}
+                                                <div class="report-item mt-2">
+                                                    <button class="btn btn-info btn-block" type="button" data-target="#category{{year_data.year}}-01-A">
+                                                        <div class="report-header">
+                                                            {{ category_data.category_name }}
+                                                        </div>
+                                                    </button>
+                                                    <div id="category{{year_data.year}}-01-A" class="collapse-content">
+                                                        <div class="report-details">
+                                                            <p><strong>درآمد: </strong> {{ category_data.total_income }} تومان</p>
+                                                            <p><strong>هزینه: </strong> {{ category_data.total_outcome }} تومان</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </button>
-                            <div id="category2024-01-A" class="collapse-content">
-                                <div class="report-details">
-                                    <p><strong>درآمد: </strong> 500000 تومان</p>
-                                    <p><strong>هزینه: </strong> 300000 تومان</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="report-item mt-2">
-                            <button class="btn btn-info btn-block" type="button" data-target="#category2024-01-B">
-                                <div class="report-header">
-                                    دسته‌بندی B
-                                </div>
-                            </button>
-                            <div id="category2024-01-B" class="collapse-content">
-                                <div class="report-details">
-                                    <p><strong>درآمد: </strong> 700000 تومان</p>
-                                    <p><strong>هزینه: </strong> 200000 تومان</p>
-                                </div>
-                            </div>
-                        </div>
+                                <!-- Add more months similarly -->
+                            {% endif %}
+                        {% endfor %}
                     </div>
-                </div>
-                <!-- Add more months similarly -->
-            </div>
+                    <div class="mt-2"></div>
+                {% endif %}
+            {% endfor %}
         </div>
-
-        <!-- Add more years similarly -->
+            <!-- Add more years similarly -->
     </div>
 </div>
 
