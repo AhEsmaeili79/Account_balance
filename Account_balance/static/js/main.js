@@ -19,11 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // chart 
 
     if (document.getElementById('chartPage')) {
-        // Sample data for the chart
         const months = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
-        const incomeData = [12000, 15000, 17000, 20000, 21000, 22000, 25000, 27000, 29000, 30000, 31000, 33000];
-        const outcomeData = [8000, 9000, 11000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000];
-
+    
+        // Initial empty data
+        let incomeData = Array(12).fill(0);
+        let outcomeData = Array(12).fill(0);
+    
+        // Fetch data from the API
+        fetch('/api/transactions/')
+            .then(response => response.json())
+            .then(data => {
+                incomeData = data.income;
+                outcomeData = data.outcome;
+                updateChart();
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    
         const ctx = document.getElementById('timeSeriesChart').getContext('2d');
         const timeSeriesChart = new Chart(ctx, {
             type: 'line',
@@ -39,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }]
             },
             options: {
-                responsive: true,  // Make chart responsive
-                maintainAspectRatio: false,  // Allow chart to change aspect ratio based on container
+                responsive: true,
+                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true,
@@ -65,34 +76,38 @@ document.addEventListener('DOMContentLoaded', () => {
                         const chartElement = elements[0];
                         const monthIndex = chartElement.index;
                         const month = months[monthIndex];
-                        // // Redirect to the details page with the month as a parameter
-                        // const dataType = timeSeriesChart.data.datasets[0].label === 'درآمد' ? 'income' : 'outcome';
                         window.location.href = `reports/month=${monthIndex + 1}`;
                     }
                 }
             }
         });
-
-        // Update chart and details based on button click
-        document.getElementById('showIncome').addEventListener('click', () => {
-            timeSeriesChart.data.datasets[0].data = incomeData;
-            timeSeriesChart.data.datasets[0].label = 'درآمد';
-            timeSeriesChart.update();
-            document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
-                months.map((month, index) => `<div class="card"><h5>${month}</h5><p>مقدار: ${incomeData[index]} تومان</p></div>`).join('') +
-                '</div>';
-        });
-
-        document.getElementById('showOutcome').addEventListener('click', () => {
-            timeSeriesChart.data.datasets[0].data = outcomeData;
-            timeSeriesChart.data.datasets[0].label = 'خرج';
-            timeSeriesChart.update();
-            document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
-                months.map((month, index) => `<div class="card"><h5>${month}</h5><p>مقدار: ${outcomeData[index]} تومان</p></div>`).join('') +
-                '</div>';
-        });
+    
+        function updateChart() {
+            document.getElementById('showIncome').addEventListener('click', () => {
+                timeSeriesChart.data.datasets[0].data = incomeData;
+                timeSeriesChart.data.datasets[0].label = 'درآمد';
+                timeSeriesChart.update();
+                document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
+                    months.map((month, index) => `<div class="card"><h5>${month}</h5><p>مقدار: ${incomeData[index]} تومان</p></div>`).join('') +
+                    '</div>';
+            });
+    
+            document.getElementById('showOutcome').addEventListener('click', () => {
+                timeSeriesChart.data.datasets[0].data = outcomeData;
+                timeSeriesChart.data.datasets[0].label = 'هزینه';
+                timeSeriesChart.update();
+                document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
+                    months.map((month, index) => `<div class="card"><h5>${month}</h5><p>مقدار: ${outcomeData[index]} تومان</p></div>`).join('') +
+                    '</div>';
+            });
+        }
+    
+        // Initialize chart with default data
+        updateChart();
     }
-// transaction
+
+    
+    // transaction
     if (document.getElementById('transactions-container')) {
         document.getElementById('showIncome').addEventListener('click', function() {
             document.querySelectorAll('.transaction-card').forEach(function(card) {
