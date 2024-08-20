@@ -47,7 +47,6 @@ def SignupPage(request):
     else:
         return render(request,'accounts/signup.html')
 
-
 def logout_view(request):
     logout(request)
     messages.success(request,"دوباره به ما سر بزنید")

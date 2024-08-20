@@ -4,9 +4,13 @@
     <div class="container">
         <div class="content">
             <div class="welcome-message" id="welcomeMessage"> {{ user.username }} خوش آمدید  </div>
-            {% for blc in balance %}
-            <div class="balance-display" id="balance">تراز حساب: {{ blc.balance }} تومان</div> 
-            {% endfor %}
+            {% if balance %}
+                {% for blc in balance %}
+                <div class="balance-display" id="balance">تراز حساب: {{ blc.balance }} تومان</div> 
+                {% endfor %}
+            {% else %}
+                <div class="balance-display" id="balance">تراز حساب: 0 </div>
+            {% endif %}
             <div class="button-group">
                 <button class="btn btn-primary" id="showIncome">نمایش درآمد</button>
                 <button class="btn btn-secondary" id="showOutcome">نمایش خرج</button>

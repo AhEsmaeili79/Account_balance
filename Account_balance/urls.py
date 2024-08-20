@@ -21,6 +21,6 @@ urlpatterns = [
     path('date/', include('persian_datetime.urls')),
     path('accounts/', include('accounts.urls')),
     path('', include('home.urls')),
-    # path('reports/', include('reports.urls')),
+    path('reports/', include('reports.urls')),
     path('transactions/', include('transactions.urls')),
 ]

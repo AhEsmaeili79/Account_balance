@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+ <link rel="stylesheet" href="{% static 'css/jalalidatepicker.min.css' %}">
+ 
+
+ <div class="container">
+    <div class="transactions-container" id="transactions-container">
+        <h2 class="text-center mb-4">تراکنش‌ها</h2>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="btn btn-primary" id="showIncome">درآمدها</button>
+            <button class="btn btn-secondary" id="showOutcome">هزینه‌ها</button>
+        </div>
+
+        <!-- Income Transaction Samples -->
+        {% if transaction_income %}
+            {% for tr_income in transaction_income %}
+                <div class="transaction-card income" id="income1">
+                    <p><strong>مبلغ: </strong>{{ tr_income.amount }} تومان</p>
+                    <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
+                    <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
+                    <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
+                    <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if transaction_outcome %}
+            {% for tr_income in transaction_outcome %}
+                <!-- Outcome Transaction Samples -->
+                <div class="transaction-card outcome" id="outcome1">
+                    <p><strong>مبلغ: </strong>{{ tr_income.amount }} تومان</p>
+                    <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
+                    <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
+                    <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
+                    <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<script src="{% static 'js/script.min.js' %}"></script>
+<script
+ type="text/javascript"
+ src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"
+></script>
+{% endblock %}

@@ -65,9 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         const chartElement = elements[0];
                         const monthIndex = chartElement.index;
                         const month = months[monthIndex];
-                        // Redirect to the details page with the month as a parameter
-                        const dataType = timeSeriesChart.data.datasets[0].label === 'درآمد' ? 'income' : 'outcome';
-                        window.location.href = `details/month=${monthIndex}/type=${dataType}`;
+                        // // Redirect to the details page with the month as a parameter
+                        // const dataType = timeSeriesChart.data.datasets[0].label === 'درآمد' ? 'income' : 'outcome';
+                        window.location.href = `reports/month=${monthIndex + 1}`;
                     }
                 }
             }

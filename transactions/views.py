@@ -1,16 +1,20 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Category, Transactions
+from django.contrib.auth.decorators import login_required
 
 
 # change format of date and time to shamsi
 def format_date_time(transaction):
-    if transaction.transaction_date:
-        transaction.transaction_date = transaction.transaction_date.strftime('%Y/%m/%d')
-    if transaction.transaction_time:
-        transaction.transaction_time = transaction.transaction_time.strftime('%H:%M')
+    Tr_date,Tr_time = transaction.transaction_date,transaction.transaction_time
+    if Tr_date:
+        transaction.transaction_date = Tr_date.strftime('%Y/%m/%d')
+    if Tr_time:
+        transaction.transaction_time = Tr_time.strftime('%H:%M')
     return transaction
 
+
+@login_required(login_url='login')
 # category view 
 def show_category(request):
     context = {}
@@ -37,6 +41,8 @@ def show_category(request):
     
     return render(request, 'transactions/category.html', context)
 
+
+@login_required(login_url='login')
 # transaction view
 def transaction(request):
     context = {}
