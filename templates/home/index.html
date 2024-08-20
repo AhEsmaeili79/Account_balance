@@ -3,17 +3,17 @@
 {% block content %}
     <div class="container">
         <div class="content">
-            <div class="welcome-message" id="welcomeMessage"> {{ user.username }} خوش آمدید  </div>
+            <div class="welcome-message" id="welcomeMessage"> {{ user.first_name }} خوش آمدید  </div>
             {% if balance %}
                 {% for blc in balance %}
-                <div class="balance-display" id="balance">تراز حساب: {{ blc.balance }} تومان</div> 
+                <div class="balance-display" id="balance">موجودی حساب: {{ blc.balance }} تومان</div> 
                 {% endfor %}
             {% else %}
-                <div class="balance-display" id="balance">تراز حساب: 0 </div>
+                <div class="balance-display" id="balance">موجودی حساب: 0 </div>
             {% endif %}
             <div class="button-group">
-                <button class="btn btn-primary" id="showIncome">نمایش درآمد</button>
-                <button class="btn btn-secondary" id="showOutcome">نمایش خرج</button>
+                <button class="btn" id="showIncome">نمایش درآمد</button>
+                <button class="btn" id="showOutcome">نمایش هزینه</button>
             </div>
             {% include 'partials/_chart.html' %}
         </div>

@@ -108,6 +108,13 @@ body::before {
 }
 
 /* chart  */
+#chartPage {
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+}
 .chart-container {
     position: relative;
     margin: 20px auto;
@@ -126,11 +133,92 @@ canvas {
     margin-top: 20px;
 }
 
+/* Details Content */
+#detailsContent {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 900px;
+    margin: 20px auto; /* Centered and responsive */
+    text-align: right; /* Right-align text for RTL layout */
+}
+
+#detailsContent h3 {
+    font-size: 1.4em;
+    color: #4682b4;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4682b4;
+    padding-bottom: 10px;
+}
+
+#detailsContent p {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+#detailsContent ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+#detailsContent ul li {
+    margin-bottom: 10px;
+}
+
+#detailsContent table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#detailsContent table, #detailsContent th, #detailsContent td {
+    border: 1px solid #ddd;
+}
+
+#detailsContent th, #detailsContent td {
+    padding: 10px;
+    text-align: right; /* Right-align text for RTL layout */
+}
+
+#detailsContent th {
+    background-color: #f2f2f2;
+    color: #4682b4;
+}
+
+#detailsContent tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #detailsContent {
+        padding: 15px;
+    }
+
+    #detailsContent h3 {
+        font-size: 1.2em;
+    }
+
+    #detailsContent p {
+        font-size: 0.9em;
+    }
+
+    #detailsContent table, #detailsContent th, #detailsContent td {
+        font-size: 0.9em;
+    }
+}
+
+
 .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
+
 
 .card {
     background-color: #e0f7fa;
@@ -152,16 +240,23 @@ canvas {
     margin: 5px 0;
 }
 
-.footer {
-    background-color: #87cefa;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+
+/* Styling for the active button */
+.btn.active {
+    background-color: #1466be; /* Darker blue for active state */
+    border-color: #0056b3; /* Darker blue border for active state */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for emphasis */
+    color: #ffffff; /* Keep text color white for readability */
 }
+
+.btn.active:hover {
+    background-color: #004494; /* Even darker blue on hover when active */
+    border-color: #004494; /* Even darker blue border on hover when active */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Maintain shadow */
+}
+
+/* end chart */
+
 
 /* Animations */
 @keyframes fadeIn {
@@ -358,12 +453,43 @@ canvas {
     box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
 }
 
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+
+
+/* Footer */
+.footer {
+    background-color: #87cefa;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
+a.card-link{
+    margin-left: 20px;
+}
+/* Card link to make the entire card clickable */
+.card-link {
+    text-decoration: none;
+    color: inherit; /* Inherit text color from card */
+}
+
+.card-link:hover .card {
+    background-color: #e0f7fa; /* Slightly different color on hover */
+    transform: scale(1.02); /* Slight zoom effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+.card {
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    padding: 15px;
+    width: 300px;
+    text-align: right;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
