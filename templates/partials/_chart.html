@@ -1,6 +1,15 @@
 <div id="chartPage">
     <div class="chart-container">
         <h1 class="center">چارت ماهانه</h1>
+        {% if years %}
+            <select id="yearSelector">
+                {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+        <h1>برای دیدن چارت باید تراکنشی ثبت کنید</h1>
+        {% endif %}
         <canvas id="timeSeriesChart"></canvas>
     </div>
     <div class="details-container" id="detailsContent-container">

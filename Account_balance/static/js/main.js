@@ -1,12 +1,17 @@
-document.addEventListener('DOMContentLoaded', () => {
 
-    // message function
-    if (document.getElementById('message')) {
-        setTimeout(function(){
-            $('#message').fadeOut('slow');
+document.addEventListener('DOMContentLoaded', () => {
+    
+    var messageElement = document.getElementById('message');
+    if (messageElement) {
+        setTimeout(function() {
+            messageElement.style.transition = 'opacity 0.8s ease-out';
+            messageElement.style.opacity = 0;
+            setTimeout(function() {
+                messageElement.style.display = 'none';
+            }, 500); // Match the transition duration
         }, 3000);
     }
-    
+
 
     // clock and time 
     const updateClock = () => {
@@ -20,22 +25,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (document.getElementById('chartPage')) {
         const months = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'];
-    
+        
         // Initial empty data
         let incomeData = Array(12).fill(0);
         let outcomeData = Array(12).fill(0);
     
-        // Fetch data from the API
-        fetch('/api/transactions/')
-            .then(response => response.json())
-            .then(data => {
-                incomeData = data.income;
-                outcomeData = data.outcome;
-                updateChart();
-                document.getElementById('showIncome').click();
-            })
-            .catch(error => console.error('Error fetching data:', error));
+        const yearSelector = document.getElementById('yearSelector');
+        
+        function fetchData(year) {
+            fetch(`/api/transactions/?year=${year}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        return;
+                    }
+                    incomeData = data.income;
+                    outcomeData = data.outcome;
+                    updateChart();
+                    const allZeros = incomeData.every(value => value === 0);
+                    if (allZeros){
+                        document.getElementById('showOutcome').click();
+                    }
+                    else{
+                        document.getElementById('showIncome').click();
+                    }                
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
     
+        function updateChart() {
+            document.getElementById('showIncome').addEventListener('click', () => {
+                setActiveButton('showIncome');
+                timeSeriesChart.data.datasets[0].data = incomeData;
+                timeSeriesChart.data.datasets[0].label = 'درآمد';
+                timeSeriesChart.update();
+                document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
+                    months.map((month, index) => `
+                        <a href="/reports/month=${index + 1}" class="card-link">
+                            <div class="card">
+                                <h5>${month}</h5>
+                                <p>مقدار: ${incomeData[index]} تومان</p>
+                                <p>واریزی</p>
+                            </div>
+                        </a>
+                    `).join('') +
+                    '</div>';
+            });
+        
+            document.getElementById('showOutcome').addEventListener('click', () => {
+                setActiveButton('showOutcome');
+                timeSeriesChart.data.datasets[0].data = outcomeData;
+                timeSeriesChart.data.datasets[0].label = 'هزینه';
+                timeSeriesChart.update();
+                document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
+                    months.map((month, index) => `
+                        <a href="/reports/month=${index + 1}" class="card-link">
+                            <div class="card">
+                                <h5>${month}</h5>
+                                <p>مقدار: ${outcomeData[index]} تومان</p>
+                                <p>کسری</p>
+                            </div>
+                        </a>
+                    `).join('') +
+                    '</div>';
+            });
+        }
+    
+        function setActiveButton(buttonId) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.btn').forEach(button => button.classList.remove('active'));
+    
+            // Add active class to the clicked button
+            document.getElementById(buttonId).classList.add('active');
+        }
+    
+        // Handle year change
+        yearSelector.addEventListener('change', () => {
+            const selectedYear = yearSelector.value;
+            fetchData(selectedYear);
+        });
+    
+        // Initialize chart with default data and trigger the default view
         const ctx = document.getElementById('timeSeriesChart').getContext('2d');
         const timeSeriesChart = new Chart(ctx, {
             type: 'line',
@@ -83,54 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     
-        function updateChart() {
-            document.getElementById('showIncome').addEventListener('click', () => {
-                setActiveButton('showIncome');
-                timeSeriesChart.data.datasets[0].data = incomeData;
-                timeSeriesChart.data.datasets[0].label = 'درآمد';
-                timeSeriesChart.update();
-                document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
-                    months.map((month, index) => `
-                        <a href="/reports/month=${index + 1}" class="card-link">
-                            <div class="card">
-                                <h5>${month}</h5>
-                                <p>مقدار: ${incomeData[index]} تومان</p>
-                            </div>
-                        </a>
-                    `).join('') +
-                    '</div>';
-            });
-        
-            document.getElementById('showOutcome').addEventListener('click', () => {
-                setActiveButton('showOutcome');
-                timeSeriesChart.data.datasets[0].data = outcomeData;
-                timeSeriesChart.data.datasets[0].label = 'خرج';
-                timeSeriesChart.update();
-                document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
-                    months.map((month, index) => `
-                        <a href="/reports/month=${index + 1}" class="card-link">
-                            <div class="card">
-                                <h5>${month}</h5>
-                                <p>مقدار: ${outcomeData[index]} تومان</p>
-                            </div>
-                        </a>
-                    `).join('') +
-                    '</div>';
-            });
-        }
-        
-    
-        function setActiveButton(buttonId) {
-            // Remove active class from all buttons
-            document.querySelectorAll('.btn').forEach(button => button.classList.remove('active'));
-    
-            // Add active class to the clicked button
-            document.getElementById(buttonId).classList.add('active');
-        }
-    
-        // Initialize chart with default data and trigger the default view
-        updateChart();
+        // Fetch data for the default year
+        fetchData(yearSelector.value);
     }
+    
 
     
     // transaction Page
