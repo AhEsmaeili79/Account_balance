@@ -1,0 +1,7 @@
+<button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#year2024">
+                سال ٢٠٢٤
+            </button>
+
+            <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#year2024" aria-expanded="true">
+                سال ٢٠٢٤
+            </button>

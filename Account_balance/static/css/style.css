@@ -76,7 +76,7 @@ body::before {
 }
 
 .topbar .user-actions a:hover {
-    color: #687df1;
+    color: #000000;
 }
 
 
@@ -463,6 +463,91 @@ canvas {
 }
 
 
+/* General Report Page */
+.report-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.report-item {
+    margin-bottom: 10px;
+}
+
+.report-item .btn {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.transaction-item p {
+    text-align:center;
+}
+
+.report-item .btn:hover {
+    background-color: #06b8ffaf;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.report-header {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.transaction-summary {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.transaction-item {
+    flex: 1;
+    text-align: center;
+}
+
+.transaction-item p {
+    margin: 0;
+}
+
+.collapse-content {
+    display: none;
+    padding: 10px;
+}
+
+.collapse-content.show {
+    display: block;
+}
+
+.report-details {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.report-details p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
 
 /* Footer */
 .footer {

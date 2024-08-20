@@ -190,6 +190,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // Automatically trigger the 'Show Income' button on page load
         document.getElementById('showIncome').click();
     }
+    
+        // General Report 
+        if (document.getElementById('report-container')) {
+            var toggles = document.querySelectorAll('.btn');
+    
+            toggles.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var target = document.querySelector(this.getAttribute('data-target'));
+                    // Toggle the clicked content
+                    target.classList.toggle('show');
+                });
+            });
+        }
 
 });
 

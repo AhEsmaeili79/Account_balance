@@ -37,3 +37,8 @@ def Report(request,monthNum):
     }
 
     return render(request, 'reports/report.html', context)
+
+
+@login_required(login_url='login')
+def GeneralReport(request):
+    return render(request,'reports/GeneralReport.html')

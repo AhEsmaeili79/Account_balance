@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="report-container" id="report-container">
+        <h2 class="text-center mb-4">گزارش تراکنش‌ها</h2>
+
+        <!-- Year List -->
+        <div class="report-item">
+            <button class="btn btn-secondary btn-block" type="button" data-target="#year2024">
+                <div class="report-header">
+                    <strong>سال 1393</strong>
+                </div>
+                <div class="transaction-summary">
+                    <div class="transaction-item">
+                        <p><strong>درآمد: </strong> 500000 تومان</p>
+                    </div>
+                    <div class="transaction-item">
+                        <p><strong>هزینه: </strong> 300000 تومان</p>
+                    </div>
+                </div>
+            </button>
+            <div id="year2024" class="collapse-content">
+                <div class="report-item mt-2">
+                    <button class="btn btn-warning btn-block" type="button" data-target="#month2024-01">
+                        <div class="report-header">
+                            <strong>فروردین</strong>
+                        </div>
+                        <div class="transaction-summary">
+                            <div class="transaction-item">
+                                <p><strong>درآمد: </strong> 500000 تومان</p>
+                            </div>
+                            <div class="transaction-item">
+                                <p><strong>هزینه: </strong> 300000 تومان</p>
+                            </div>
+                        </div>
+                    </button>
+                    <div id="month2024-01" class="collapse-content">
+                        <div class="report-item mt-2">
+                            <button class="btn btn-info btn-block" type="button" data-target="#category2024-01-A">
+                                <div class="report-header">
+                                    دسته‌بندی A
+                                </div>
+                            </button>
+                            <div id="category2024-01-A" class="collapse-content">
+                                <div class="report-details">
+                                    <p><strong>درآمد: </strong> 500000 تومان</p>
+                                    <p><strong>هزینه: </strong> 300000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="report-item mt-2">
+                            <button class="btn btn-info btn-block" type="button" data-target="#category2024-01-B">
+                                <div class="report-header">
+                                    دسته‌بندی B
+                                </div>
+                            </button>
+                            <div id="category2024-01-B" class="collapse-content">
+                                <div class="report-details">
+                                    <p><strong>درآمد: </strong> 700000 تومان</p>
+                                    <p><strong>هزینه: </strong> 200000 تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more months similarly -->
+            </div>
+        </div>
+
+        <!-- Add more years similarly -->
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

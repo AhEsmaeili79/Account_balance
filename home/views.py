@@ -36,6 +36,7 @@ def show_balacne(request):
     return render(request,'home/index.html',context)
 
 
+@login_required(login_url='login')
 def get_transactions_data(request):
     year = request.GET.get('year', None)
     
