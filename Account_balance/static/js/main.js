@@ -153,11 +153,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        document.getElementById('addTransactionBtn').addEventListener('click', function() {
-            var form = document.getElementById('transactionForm');
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
-        });
+        if (document.getElementById('addTransactionBtn')) {
+            document.getElementById('addTransactionBtn').addEventListener('click', function() {
+                var form = document.getElementById('transactionForm');
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        // Automatically trigger the 'Show Income' button on page load
+        document.getElementById('showIncome').click();
     }
+
 });
 
 function convertNumbersToArabic(text) {
