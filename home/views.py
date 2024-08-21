@@ -23,6 +23,9 @@ def show_balacne(request):
         
         balance = income_total - outcome_total
 
+        if balance < 0 :
+            balance = 0
+
 
     # Generate a list of years based on the transactions data
     years = Transactions.objects.filter(user_id=request.user.id).dates('transaction_date', 'year').distinct().order_by('-transaction_date__year')

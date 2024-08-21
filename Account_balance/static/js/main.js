@@ -53,6 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(error => console.error('Error fetching data:', error));
         }
+
+        function formatNumber(number) {
+            // Format the number using Arabic numerals
+            return new Intl.NumberFormat('ar-EG').format(number);
+        }
     
         function updateChart() {
             document.getElementById('showIncome').addEventListener('click', () => {
@@ -65,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="/reports/month=${index + 1}" class="card-link">
                             <div class="card">
                                 <h5>${month}</h5>
-                                <p>مقدار: ${incomeData[index]} تومان</p>
+                                <p>مقدار: ${formatNumber(incomeData[index])} تومان</p>
                                 <p>واریزی</p>
                             </div>
                         </a>
@@ -83,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <a href="/reports/month=${index + 1}" class="card-link">
                             <div class="card">
                                 <h5>${month}</h5>
-                                <p>مقدار: ${outcomeData[index]} تومان</p>
+                                <p>مقدار: ${formatNumber(incomeData[index])} تومان</p>
                                 <p>کسری</p>
                             </div>
                         </a>
@@ -129,13 +134,56 @@ document.addEventListener('DOMContentLoaded', () => {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'مقدار (تومان)'
+                            text: 'مقدار (تومان)',
+                            font: {
+                                family: 'Qs Iranyekan' // for title
+                            }
+                        },
+                        ticks: {
+                            callback: value => formatNumber(value),
+                            font: {
+                                family: 'Qs Iranyekan' // for each number
+                            }
                         }
                     },
                     x: {
                         title: {
                             display: true,
-                            text: 'ماه'
+                            text: 'ماه',
+                            font: {
+                                family: 'Qs Iranyekan' // for title
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Qs Iranyekan' // for each month
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: 'Qs Iranyekan' // for head title
+                            }
+                        }
+                    },
+                    tooltip: {
+                        titleFont: {
+                            family: 'Qs Iranyekan', // for tooltip title
+                        },
+                        bodyFont: {
+                            family: 'Qs Iranyekan', // for tooltip body
+                        },
+                        footerFont: {
+                            family: 'Qs Iranyekan', // for tooltip footer
+                        },
+                        callbacks: {
+                            label: function(context) {
+                                // for tooltip label format to have persian number
+                                return `${context.label}: ${formatNumber(context.raw)} تومان`;
+                            }
                         }
                     }
                 },
