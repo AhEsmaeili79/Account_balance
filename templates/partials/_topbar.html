@@ -4,7 +4,7 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'index' %}" id="signupLink">مدیریت پروفایل</a>
                 <a href="{% url 'transactions' %}" id="signupLink">مدیریت تراکنش ها</a>
-                <a href="{% url 'generalreport' %}" id="signupLink">مدیریت تراکنش ها</a>
+                <a href="{% url 'generalreport' %}" id="signupLink">گزارش کلی</a>
                 <a href="{% url 'logout' %}" id="logoutLink">خروج</a>
             {% else %}
                 <a href="{% url 'login' %}" id="signupLink">ورود</a>
