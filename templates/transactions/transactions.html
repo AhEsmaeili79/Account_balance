@@ -42,7 +42,7 @@
                         <p><strong>زمان: </strong>{{ tr_outcome.transaction_time }}</p>
                         <p><strong>دسته‌بندی: </strong>{{ tr_outcome.category_id.category_name}}</p>
                         <p><strong>توضیحات: </strong>{{ tr_outcome.description }}</p>
-                        <button class="btn btn-warning btn-sm edit-btn" onclick="toggleEditForm({{ tr_outcome.id }})">ویرایش</button>
+                        <button class="btn btn-warning btn-sm edit-btn" onclick="showEditModal({{ tr_outcome.id }}, '{{ tr_outcome.amount }}', '{{ tr_outcome.transaction_date }}', '{{ tr_outcome.transaction_time }}', '{{ tr_outcome.category_id.id }}', '{{ tr_outcome.description }}');">ویرایش</button>
                         <button type="button" class="btn btn-danger btn-sm" onclick="showConfirmModal({{ tr_outcome.id }});">حذف</button>
                         
                         <!-- edit form -->
