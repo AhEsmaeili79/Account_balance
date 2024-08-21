@@ -132,3 +132,18 @@ def edit_transaction(request):
         #     return redirect('transactions')
     
     return render(request, 'transactions/transactions.html')
+
+
+@login_required(login_url='login')
+def delete_transaction(request):
+    if 'delete_transaction' in request.POST:
+        transaction_id = request.POST.get('transaction_id')
+        print('delete',transaction_id)
+        transaction_delete = Transactions.objects.filter(id=transaction_id)
+        transaction_delete.delete()
+
+        messages.success(request,"تراکنش با موفقیت حذف شد.")
+        return redirect('add_transactions')
+    else:
+        messages.error(request,"تراکنش با شکست مواجه شد.")
+        return redirect('add_transactions')
