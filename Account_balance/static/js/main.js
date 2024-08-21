@@ -204,6 +204,19 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Modal Delete alert
+        if (document.getElementById('transactionList')) {
+            function showConfirmModal(transactionId) {
+                document.getElementById('modalTransactionId').value = transactionId;
+                document.getElementById('deleteForm').action = "{% url 'delete_transactions' %}";
+                document.getElementById('confirmModal').style.display = 'block';
+            }
+            
+            function closeConfirmModal() {
+                document.getElementById('confirmModal').style.display = 'none';
+            }
+        }
+
 });
 
 function convertNumbersToArabic(text) {

@@ -25,11 +25,8 @@
                         <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
                         <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
                         <button class="btn btn-warning btn-sm edit-btn" onclick="toggleEditForm({{ tr_income.id }})">ویرایش</button>
-                        <form action="{% url 'delete_transactions' %}" method="post" class="d-inline">
-                            {% csrf_token %}
-                            <input type="hidden" name="transaction_id" value="{{ tr_income.id }}">
-                            <button type="submit" name="delete_transaction" class="btn btn-danger btn-sm">حذف</button>
-                        </form>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="showConfirmModal({{ tr_income.id }});">حذف</button>
+                
                         <!-- edit form -->
                     </div>
                 {% endfor %}
@@ -37,20 +34,17 @@
             
 
             {% if transaction_outcome %}
-                {% for tr_income in transaction_outcome %}
+                {% for tr_outcome in transaction_outcome %}
                     <!-- Outcome Transaction Samples -->
                     <div class="transaction-card outcome" id="outcome1">
-                        <p><strong>مبلغ: </strong>{{ tr_income.amount }} تومان</p>
-                        <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
-                        <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
-                        <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
-                        <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
-                        <button class="btn btn-warning btn-sm edit-btn" onclick="toggleEditForm({{ tr_income.id }})">ویرایش</button>
-                        <form action="{% url 'delete_transactions' %}" method="post" class="d-inline">
-                            {% csrf_token %}
-                            <input type="hidden" name="transaction_id" value="{{ tr_income.id }}">
-                            <button type="submit" name="delete_transaction" class="btn btn-danger btn-sm">حذف</button>
-                        </form>
+                        <p><strong>مبلغ: </strong>{{ tr_outcome.amount }} تومان</p>
+                        <p><strong>تاریخ: </strong>{{ tr_outcome.transaction_date }}</p>
+                        <p><strong>زمان: </strong>{{ tr_outcome.transaction_time }}</p>
+                        <p><strong>دسته‌بندی: </strong>{{ tr_outcome.category_id.category_name}}</p>
+                        <p><strong>توضیحات: </strong>{{ tr_outcome.description }}</p>
+                        <button class="btn btn-warning btn-sm edit-btn" onclick="toggleEditForm({{ tr_outcome.id }})">ویرایش</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="showConfirmModal({{ tr_outcome.id }});">حذف</button>
+                        
                         <!-- edit form -->
                     </div>
                 {% endfor %}
@@ -112,9 +106,35 @@
     </div>
 </div>
 
-<script src="{% static 'js/script.min.js' %}"></script>
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content">
+        <p>آیا از حذف این تراکنش مطمئن هستید؟</p>
+        <form id="deleteForm" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="transaction_id" id="modalTransactionId">
+            <input type="hidden" name="delete_transaction" value="delete_transaction" id="modalTransaction">
+            <button type="submit" class="btn btn-danger">حذف</button>
+            <button type="button" class="btn btn-secondary" onclick="closeConfirmModal();">انصراف</button>
+        </form>
+    </div>
+</div>
+
+
+
 <script
  type="text/javascript"
  src="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.js"
 ></script>
+<script>
+    function showConfirmModal(transactionId) {
+        console.log(transactionId)
+        document.getElementById('modalTransactionId').value = transactionId;
+        document.getElementById('deleteForm').action = "{% url 'delete_transactions' %}";
+        document.getElementById('confirmModal').style.display = 'block';
+}
+
+function closeConfirmModal() {
+    document.getElementById('confirmModal').style.display = 'none';
+}</script>
 {% endblock %}

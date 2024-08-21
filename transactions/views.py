@@ -138,7 +138,6 @@ def edit_transaction(request):
 def delete_transaction(request):
     if 'delete_transaction' in request.POST:
         transaction_id = request.POST.get('transaction_id')
-        print('delete',transaction_id)
         transaction_delete = Transactions.objects.filter(id=transaction_id)
         transaction_delete.delete()
 
