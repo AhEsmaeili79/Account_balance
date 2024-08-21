@@ -5,7 +5,7 @@
         <div class="content">
             <div class="welcome-message" id="welcomeMessage"> {{ user.first_name }} خوش آمدید  </div>
             {% if balance %}
-                <div class="balance-display" id="balance">موجودی حساب: {{ balance }} تومان</div> 
+                <div class="balance-display" id="balance">موجودی حساب: <span class="balance_num">{{ balance }}</span> تومان</div> 
             {% else %}
                 <div class="balance-display" id="balance">موجودی حساب: 0 </div>
             {% endif %}

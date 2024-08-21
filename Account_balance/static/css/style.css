@@ -74,6 +74,9 @@ body::before {
     font-weight: bold;
     transition: color 0.3s;
 }
+.balance_num{
+    direction: ltr;
+}
 
 .topbar .user-actions a:hover {
     color: #68f1cf;
@@ -583,7 +586,7 @@ a.card-link{
 .modal {
     display: none; 
     position: fixed; 
-    z-index: 1; 
+    z-index: 900; 
     left: 0;
     top: 0;
     width: 100%;
@@ -607,14 +610,7 @@ a.card-link{
 }
 
 
-
-
-
-
-
-
-
-
+/* edit Form */
 
 
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .models import Category, Transactions
 from django.contrib.auth.decorators import login_required
@@ -23,6 +23,14 @@ def has_transaction(am,Tr_T,Tr_d,Tr_Cat,U_id,Tr_Time,Desc):
                                                      transaction_time=Tr_Time,
                                                      description=Desc).exists()
     return has_transacion
+
+
+def can_be_integer(value):
+    try:
+        int(value)
+        return True
+    except (ValueError, TypeError):
+        return False
 
 
 @login_required(login_url='login')
@@ -66,29 +74,33 @@ def transaction(request):
         user_id = request.POST.get('user_id')
         description = request.POST.get('description')
     
-
-        if amount and transaction_type and transaction_date and transaction_time and transaction_category:
-            transaction_date = transaction_date.replace('/', '-')
-            has_transacion = has_transaction(amount,transaction_time,transaction_date,transaction_category,user_id,transaction_time,description)
-            print(has_transacion)
-            if has_transacion:
-                transaction = Transactions(
-                    amount=amount,
-                    transaction_type=transaction_type,
-                    transaction_date=transaction_date,
-                    transaction_time=transaction_time,
-                    category_id= Category.objects.get(id=transaction_category, user_id__in=[user_id, 0]),
-                    user_id=user_id,
-                    description=description
-                )
-                transaction.save()
-                return redirect('add_transactions')
+        if can_be_integer(amount):
+            amount = int(amount)
+            if amount and transaction_type and transaction_date and transaction_time and transaction_category:
+                transaction_date = transaction_date.replace('/', '-')
+                has_transacion = has_transaction(amount,transaction_time,transaction_date,transaction_category,user_id,transaction_time,description)
+                print(has_transacion)
+                if not has_transacion:
+                    transaction = Transactions(
+                        amount=amount,
+                        transaction_type=transaction_type,
+                        transaction_date=transaction_date,
+                        transaction_time=transaction_time,
+                        category_id= Category.objects.get(id=transaction_category, user_id__in=[user_id, 0]),
+                        user_id=user_id,
+                        description=description
+                    )
+                    transaction.save()
+                    return redirect('add_transactions')
+                else:
+                    messages.error(request,"این تراکنش در سیستم وجود دارد!")
+                    return redirect('add_transactions')
+                
             else:
-                messages.error(request,"این تراکنش در سیستم وجود دارد!")
-                return redirect('add_transactions')
-            
+                messages.error(request, 'All fields are required.')
         else:
-            messages.error(request, 'All fields are required.')
+            messages.error(request,"لطفا مقدار را عدد وارد کنید")
+
 
     transaction_outcome = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='outcome')
     transaction_income = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='income')
@@ -110,17 +122,32 @@ def transaction(request):
 @login_required(login_url='login')
 def edit_transaction(request):
     if 'edit_transaction' in request.POST:
-        transaction_id = request.POST('transaction_id')
-        print(f'{transaction_id},edit_transaction')
-        # amount = request.POST.get('amount')
-        # transaction_type = request.POST.get('transactionType')
-        # transaction_date = request.POST.get('transactionDate')
-        # transaction_time = request.POST.get('transactionTime')
-        # transaction_category = request.POST.get('category')
-        # user_id = request.POST.get('user_id')
-        # description = request.POST.get('description')
+        transaction_id = request.POST.get('transaction_id')
+        amount_update = request.POST.get('amount')
+        transaction_date_update = request.POST.get('transactionDate')
+        transaction_time_update = request.POST.get('transactionTime')
+        transaction_category_update = request.POST.get('category')
+        user_id = request.POST.get('user_id')
+        description_update = request.POST.get('description')
 
-        # transaction_date = transaction_date.replace('/', '-')
+        transaction = get_object_or_404(Transactions,id=transaction_id)
+        
+
+        transaction_date_update = transaction_date_update.replace('/', '-')
+        if amount_update:
+            transaction.amount = amount_update
+        if transaction_date_update:
+            transaction.transaction_date = transaction_date_update
+        if transaction_time_update:
+            transaction.transaction_time = transaction_time_update
+        if transaction_category_update:
+            transaction.category_id = Category.objects.get(id=transaction_category_update, user_id__in=[user_id, 0])
+        if description_update or description_update == "":
+            transaction.description = description_update
+
+        transaction.save()
+        return redirect('add_transactions')
+        
         
         # print(amount,transaction_type,transaction_date,transaction_time,transaction_category,user_id,description)
         
@@ -138,6 +165,7 @@ def edit_transaction(request):
 def delete_transaction(request):
     if 'delete_transaction' in request.POST:
         transaction_id = request.POST.get('transaction_id')
+        print(transaction_id)
         transaction_delete = Transactions.objects.filter(id=transaction_id)
         transaction_delete.delete()
 

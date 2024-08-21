@@ -30,14 +30,14 @@
         {% endif %}
 
         {% if transaction_outcome %}
-            {% for tr_income in transaction_outcome %}
+            {% for tr_outcome in transaction_outcome %}
                 <!-- Outcome Transaction Samples -->
                 <div class="transaction-card outcome" id="outcome1">
-                    <p><strong>مبلغ: </strong>{{ tr_income.amount }} تومان</p>
-                    <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
-                    <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
-                    <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
-                    <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
+                    <p><strong>مبلغ: </strong>{{ tr_outcome.amount }} تومان</p>
+                    <p><strong>تاریخ: </strong>{{ tr_outcome.transaction_date }}</p>
+                    <p><strong>زمان: </strong>{{ tr_outcome.transaction_time }}</p>
+                    <p><strong>دسته‌بندی: </strong>{{ tr_outcome.category_id.category_name}}</p>
+                    <p><strong>توضیحات: </strong>{{ tr_outcome.description }}</p>
                 </div>
             {% endfor %}
         {% endif %}

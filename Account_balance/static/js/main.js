@@ -191,32 +191,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('showIncome').click();
     }
     
-        // General Report 
-        if (document.getElementById('report-container')) {
-            var toggles = document.querySelectorAll('.btn');
-    
-            toggles.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var target = document.querySelector(this.getAttribute('data-target'));
-                    // Toggle the clicked content
-                    target.classList.toggle('show');
-                });
+    // General Report 
+    if (document.getElementById('report-container')) {
+        var toggles = document.querySelectorAll('.btn');
+
+        toggles.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var target = document.querySelector(this.getAttribute('data-target'));
+                // Toggle the clicked content
+                target.classList.toggle('show');
             });
-        }
-
-        // Modal Delete alert
-        if (document.getElementById('transactionList')) {
-            function showConfirmModal(transactionId) {
-                document.getElementById('modalTransactionId').value = transactionId;
-                document.getElementById('deleteForm').action = "{% url 'delete_transactions' %}";
-                document.getElementById('confirmModal').style.display = 'block';
-            }
-            
-            function closeConfirmModal() {
-                document.getElementById('confirmModal').style.display = 'none';
-            }
-        }
-
+        });
+    }
 });
 
 function convertNumbersToArabic(text) {
@@ -254,3 +240,30 @@ function convertAllNumbersToArabic() {
 
 // Convert numbers on page load
 document.addEventListener('DOMContentLoaded', convertAllNumbersToArabic);
+
+
+// Modal Delete alert
+function showConfirmModal(transactionId) {
+    console.log(transactionId)
+    document.getElementById('modalTransactionId').value = transactionId;
+    document.getElementById('confirmModal').style.display = 'block';
+}
+
+function closeConfirmModal() {
+    document.getElementById('confirmModal').style.display = 'none';
+}
+
+
+function showEditModal(id, amount, date, time, category, description) {
+    document.getElementById('editTransactionId').value = id;
+    document.getElementById('editAmount').value = amount;
+    document.getElementById('editTransactionDate').value = date;
+    document.getElementById('editTransactionTime').value = time;
+    document.getElementById('editCategory').value = category;
+    document.getElementById('editDescription').value = description;
+    document.getElementById('editModal').style.display = 'block';
+}
+
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+}
