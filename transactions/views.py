@@ -14,6 +14,17 @@ def format_date_time(transaction):
     return transaction
 
 
+def has_transaction(am,Tr_T,Tr_d,Tr_Cat,U_id,Tr_Time,Desc):
+    has_transacion = Transactions.objects.filter(amount=am,
+                                                     transaction_type=Tr_T,
+                                                     transaction_date=Tr_d,
+                                                     user_id=U_id,
+                                                     category_id=Tr_Cat,
+                                                     transaction_time=Tr_Time,
+                                                     description=Desc).exists()
+    return has_transacion
+
+
 @login_required(login_url='login')
 # category view 
 def show_category(request):
@@ -42,23 +53,25 @@ def show_category(request):
     return render(request, 'transactions/category.html', context)
 
 
+
 @login_required(login_url='login')
 # transaction view
 def transaction(request):
-    context = {}
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            amount = request.POST.get('amount')
-            transaction_type = request.POST.get('transactionType')
-            transaction_date = request.POST.get('transactionDate')
-            transaction_time = request.POST.get('transactionTime')
-            transaction_category = request.POST.get('category')
-            user_id = request.POST.get('user_id')
-            description = request.POST.get('description')
+    if 'add_transaction' in request.POST:
+        amount = request.POST.get('amount')
+        transaction_type = request.POST.get('transactionType')
+        transaction_date = request.POST.get('transactionDate')
+        transaction_time = request.POST.get('transactionTime')
+        transaction_category = request.POST.get('category')
+        user_id = request.POST.get('user_id')
+        description = request.POST.get('description')
+    
 
-            print(amount,transaction_type,transaction_date,transaction_time,transaction_category,user_id,description)
-            if amount and transaction_type and transaction_date and transaction_time and transaction_category:
-                transaction_date = transaction_date.replace('/', '-')
+        if amount and transaction_type and transaction_date and transaction_time and transaction_category:
+            transaction_date = transaction_date.replace('/', '-')
+            has_transacion = has_transaction(amount,transaction_time,transaction_date,transaction_category,user_id,transaction_time,description)
+            print(has_transacion)
+            if has_transacion:
                 transaction = Transactions(
                     amount=amount,
                     transaction_type=transaction_type,
@@ -69,22 +82,53 @@ def transaction(request):
                     description=description
                 )
                 transaction.save()
-                return redirect('transactions')
+                return redirect('add_transactions')
             else:
-                messages.error(request, 'All fields are required.')
-        
-        transaction_outcome = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='outcome')
-        transaction_income = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='income')
-        category_list = Category.objects.filter(user_id=0) | Category.objects.filter(user_id=request.user.id)
+                messages.error(request,"این تراکنش در سیستم وجود دارد!")
+                return redirect('add_transactions')
+            
+        else:
+            messages.error(request, 'All fields are required.')
 
-       # Format dates and times for display
-        transaction_outcome = [format_date_time(txn) for txn in transaction_outcome]
-        transaction_income = [format_date_time(txn) for txn in transaction_income]
+    transaction_outcome = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='outcome')
+    transaction_income = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='income')
+    category_list = Category.objects.filter(user_id=0) | Category.objects.filter(user_id=request.user.id)
 
-        context = {
-            'transaction_outcome': transaction_outcome,
-            'transaction_income': transaction_income,
-            'category': category_list,
-        }
+    # Format dates and times for display
+    transaction_outcome = [format_date_time(txn) for txn in transaction_outcome]
+    transaction_income = [format_date_time(txn) for txn in transaction_income]
+
+    context = {
+        'transaction_outcome': transaction_outcome,
+        'transaction_income': transaction_income,
+        'category': category_list,
+    }
 
     return render(request, 'transactions/transactions.html', context)
+
+
+@login_required(login_url='login')
+def edit_transaction(request):
+    if 'edit_transaction' in request.POST:
+        transaction_id = request.POST('transaction_id')
+        print(f'{transaction_id},edit_transaction')
+        # amount = request.POST.get('amount')
+        # transaction_type = request.POST.get('transactionType')
+        # transaction_date = request.POST.get('transactionDate')
+        # transaction_time = request.POST.get('transactionTime')
+        # transaction_category = request.POST.get('category')
+        # user_id = request.POST.get('user_id')
+        # description = request.POST.get('description')
+
+        # transaction_date = transaction_date.replace('/', '-')
+        
+        # print(amount,transaction_type,transaction_date,transaction_time,transaction_category,user_id,description)
+        
+        # has_transacion = has_transacion(request,amount,transaction_time,transaction_date,user_id,transaction_category,transaction_time,description)
+        # print(has_transacion)
+        
+        # if has_transacion:
+        #     messages.error(request,"این تراکنش در سیستم وجود دارد!")
+        #     return redirect('transactions')
+    
+    return render(request, 'transactions/transactions.html')
