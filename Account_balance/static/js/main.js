@@ -345,13 +345,15 @@ if (document.getElementById('form-input')) {
         toggleButton.classList.toggle('bi-eye');
         toggleButton.classList.toggle('bi-eye-slash');
     }
-
+    if (document.getElementById('togglePassword1')) {
     // Event listeners for each toggle button
     togglePassword1.addEventListener('click', () => {
         togglePasswordVisibility(togglePassword1, password1);
     });
-
+    }
+    if (document.getElementById('togglePassword2')) {
     togglePassword2.addEventListener('click', () => {
         togglePasswordVisibility(togglePassword2, password2);
     });
+    }
 }
