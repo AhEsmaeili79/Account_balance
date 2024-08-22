@@ -147,16 +147,6 @@ def edit_transaction(request):
 
         transaction.save()
         return redirect('add_transactions')
-        
-        
-        # print(amount,transaction_type,transaction_date,transaction_time,transaction_category,user_id,description)
-        
-        # has_transacion = has_transacion(request,amount,transaction_time,transaction_date,user_id,transaction_category,transaction_time,description)
-        # print(has_transacion)
-        
-        # if has_transacion:
-        #     messages.error(request,"این تراکنش در سیستم وجود دارد!")
-        #     return redirect('transactions')
     
     return render(request, 'transactions/transactions.html')
 
@@ -172,5 +162,5 @@ def delete_transaction(request):
         messages.success(request,"تراکنش با موفقیت حذف شد.")
         return redirect('add_transactions')
     else:
-        messages.error(request,"تراکنش با شکست مواجه شد.")
+        messages.error(request,"حذف تراکنش با شکست مواجه شد.")
         return redirect('add_transactions')
