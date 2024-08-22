@@ -157,15 +157,18 @@ def SignupPage(request):
                 messages.error(request, 'نام کاربری را وارد کنید')
             elif User.objects.filter(username=username).exists():
                 messages.error(request, 'نام کاربری وجود دارد با نام کاربری دیگری امتحان کنید')
+                return redirect('login')
             elif User.objects.filter(email=email).exists():
                 messages.error(request, 'ایمیل وجود دارد با یک ایمیل دیگر ثبت نام کنید')
+                return redirect('login')
             else:
                 user = User.objects.create_user(username=username,password=password,first_name=firstname,last_name=lastname,email=email)
                 user.save()
                 messages.success(request,'ثبت نام شما با موفقیت انجام شد')  
                 return redirect('index')
         else:
-            messages.error(request, 'کلمه عبور مطابقت ندارد') 
+            messages.error(request, 'کلمه عبور مطابقت ندارد')
+            return redirect('login')
     else:
         return render(request,'accounts/signup.html')
     
