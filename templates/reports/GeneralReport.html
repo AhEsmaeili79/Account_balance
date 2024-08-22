@@ -47,13 +47,15 @@
                                                         <div class="report-header">
                                                             {{ category_data.category_name }}
                                                         </div>
-                                                    </button>
-                                                    <div id="category{{year_data.year}}-01-A" class="collapse-content">
-                                                        <div class="report-details">
-                                                            <p><strong>درآمد: </strong> {{ category_data.total_income }} تومان</p>
-                                                            <p><strong>هزینه: </strong> {{ category_data.total_outcome }} تومان</p>
+                                                        <div class="transaction-summary">
+                                                            <div class="transaction-item">
+                                                                <p><strong>درآمد: </strong> {{ category_data.total_income }} تومان</p>
+                                                            </div>
+                                                            <div class="transaction-item">
+                                                                <p><strong>هزینه: </strong> {{ category_data.total_outcome }} تومان</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </button>
                                                 </div>
                                             {% endif %}
                                         {% endfor %}
