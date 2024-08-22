@@ -20,6 +20,9 @@ def format_date_time(transaction):
 @login_required(login_url='login')
 def Report(request,monthNum):
     try:
+
+        monthName = Months[str(monthNum)]
+        
         monthNum = int(monthNum)
         if not 1 <= monthNum <= 12:
             raise ValueError("Invalid month number")
@@ -37,6 +40,7 @@ def Report(request,monthNum):
     context = {
         'transaction_income': transaction_income,
         'transaction_outcome' : transaction_outcome,
+        'monthname': monthName,
     }
 
     return render(request, 'reports/report.html', context)

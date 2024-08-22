@@ -31,6 +31,12 @@ def validate(**kwargs):
 
     if 'password' in kwargs and not is_valid_password(kwargs['password']):
         add_error('رمز عبور باید دارای حروف بزرگ و کوچک و عدد و کاراکتر های خاص باشد')
+    
+    if 'password_conf' in kwargs and not is_valid_password(kwargs['password_conf']):
+        add_error('رمز عبور باید دارای حروف بزرگ و کوچک و عدد و کاراکتر های خاص باشد')
+    
+    if 'password_conf' in kwargs and 'password' in kwargs and kwargs['password'] != kwargs['password_conf']:
+        add_error('رمز عبور باید مطابقت داشته باشد')
 
     if 'username' in kwargs and not is_valid_username(kwargs['username']):
         add_error('نام کاربری باید با حرف شروع شود و فقط شامل حروف، اعداد و زیرخط باشد')
@@ -202,9 +208,10 @@ def authenticate_user(request, username, password):
         return True
     return False
 
-def create_user(username, firstname, lastname, email, password):
+def create_user(username, firstname, lastname, email, password,password_conf):
     user = User.objects.create_user(username=username, password=password, 
                                     first_name=firstname, last_name=lastname, email=email)
+    password_conf = password_conf
     user.save()
 
 def check_user_exists(username, email):

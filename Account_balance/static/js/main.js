@@ -66,12 +66,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeSeriesChart.data.datasets[0].data = incomeData;
                 timeSeriesChart.data.datasets[0].label = 'درآمد';
                 timeSeriesChart.update();
+                
+                const filteredMonths = months.filter((month, index) => incomeData[index] > 0);
+                const filteredIncomeData = incomeData.filter(value => value > 0);
+                
                 document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
-                    months.map((month, index) => `
-                        <a href="/reports/month=${index + 1}" class="card-link">
+                    filteredMonths.map((month, index) => `
+                        <a href="/reports/month=${months.indexOf(month) + 1}" class="card-link">
                             <div class="card">
                                 <h5>${month}</h5>
-                                <p>مقدار: ${formatNumber(incomeData[index])} تومان</p>
+                                <p>مقدار: ${formatNumber(filteredIncomeData[index])} تومان</p>
                                 <p>واریزی</p>
                             </div>
                         </a>
@@ -84,12 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 timeSeriesChart.data.datasets[0].data = outcomeData;
                 timeSeriesChart.data.datasets[0].label = 'هزینه';
                 timeSeriesChart.update();
+                
+                const filteredMonths = months.filter((month, index) => outcomeData[index] > 0);
+                const filteredOutcomeData = outcomeData.filter(value => value > 0);
+                
                 document.getElementById('detailsContent').innerHTML = '<div class="card-container">' + 
-                    months.map((month, index) => `
-                        <a href="/reports/month=${index + 1}" class="card-link">
+                    filteredMonths.map((month, index) => `
+                        <a href="/reports/month=${months.indexOf(month) + 1}" class="card-link">
                             <div class="card">
                                 <h5>${month}</h5>
-                                <p>مقدار: ${formatNumber(incomeData[index])} تومان</p>
+                                <p>مقدار: ${formatNumber(filteredOutcomeData[index])} تومان</p>
                                 <p>کسری</p>
                             </div>
                         </a>
