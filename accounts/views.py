@@ -4,7 +4,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.models import User
 
-from modules.func import user_decode, validate, authenticate_user, create_user, check_user_exists, send_password_reset_email
+from modules.utils_acc import user_decode, validate, authenticate_user, create_user, check_user_exists, send_password_reset_email,validate_reset_token
 
 token_generator = PasswordResetTokenGenerator()
 
@@ -65,20 +65,24 @@ def reset_password(request, uidb64, token):
     if request.method == "POST":
         try:
             user = user_decode(uidb64)
-            if token_generator.check_token(user, token):
-                password_data = {
-                    'password': request.POST.get('password'),
-                    'password2': request.POST.get('password2')
-                }
+            if validate_reset_token(uidb64, token) > 0:
+                print(validate_reset_token)
+                if token_generator.check_token(user, token):
+                    password_data = {
+                        'password': request.POST.get('password'),
+                        'password_conf': request.POST.get('password2')
+                    }
 
-                if validate(request=request, **password_data):
-                    user.set_password(password_data['password'])
-                    user.save()
-                    messages.success(request, 'کلمه عبور با موفقیت تغییر کرد')
-                    return redirect('login')
-            else:
-                messages.error(request, 'تغییر کلمه عبور شما با مشکل مواجه شد دوباره درخواست دهید')
-                return redirect('forget_password')
+                    if validate(request=request, **password_data):
+                        user.set_password(password_data['password'])
+                        user.save()
+                        messages.success(request, 'کلمه عبور با موفقیت تغییر کرد')
+                        return redirect('login')
+                else:
+                    messages.error(request, "دوباره تلاش کنید")
+            else: 
+                messages.error(request, "زمان تغییر کلمه عبور به اتمام رسید دوباره درخواست دهید")
+        
         except User.DoesNotExist:
             messages.error(request, 'کاربری با این اطلاعات وجود ندارد')
             return redirect('forget_password')

@@ -1,6 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
+    
     var messageElement = document.getElementById('message');
     if (messageElement) {
         setTimeout(function() {
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500); // Match the transition duration
         }, 3000);
     }
-
+    
 
     // clock and time 
     const updateClock = () => {
@@ -315,3 +316,31 @@ function showEditModal(id, amount, date, time, category, description) {
 function closeEditModal() {
     document.getElementById('editModal').style.display = 'none';
 }
+
+// show pass
+// Select both password fields and their corresponding toggle icons
+const togglePassword1 = document.querySelector('#togglePassword1');
+const password1 = document.querySelector('#password');
+
+const togglePassword2 = document.querySelector('#togglePassword2');
+const password2 = document.querySelector('#password2');
+
+// Function to toggle password visibility
+function togglePasswordVisibility(toggleButton, passwordField) {
+    // Toggle the type attribute
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField.setAttribute('type', type);
+
+    // Toggle the eye icon
+    toggleButton.classList.toggle('bi-eye');
+    toggleButton.classList.toggle('bi-eye-slash');
+}
+
+// Event listeners for each toggle button
+togglePassword1.addEventListener('click', () => {
+    togglePasswordVisibility(togglePassword1, password1);
+});
+
+togglePassword2.addEventListener('click', () => {
+    togglePasswordVisibility(togglePassword2, password2);
+});

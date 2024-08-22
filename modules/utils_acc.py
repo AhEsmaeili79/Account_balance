@@ -5,6 +5,9 @@ from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib import messages,auth
 from django.contrib.auth.models import User
+from accounts.models import PasswordResetToken
+from django.shortcuts import get_object_or_404
+
 
 # validate function
 def validate(**kwargs):
@@ -13,7 +16,8 @@ def validate(**kwargs):
     def add_error(message):
         nonlocal no_error
         request = kwargs['request']
-        messages.error(request, message)
+        if request:
+            messages.add_message(request, messages.WARNING, message)
         no_error = False
 
     if 'email' in kwargs and not is_valid_email(kwargs['email']):
@@ -27,12 +31,6 @@ def validate(**kwargs):
 
     if 'password' in kwargs and not is_valid_password(kwargs['password']):
         add_error('رمز عبور باید دارای حروف بزرگ و کوچک و عدد و کاراکتر های خاص باشد')
-
-    if 'passwordconf' in kwargs and not is_valid_password(kwargs['passwordconf']):
-        add_error('رمز عبور باید دارای حروف بزرگ و کوچک و عدد و کاراکتر های خاص باشد')
-
-    if kwargs['password'] != kwargs['passwordconf']:
-        add_error('رمزهای عبور مطابقت ندارند')
 
     if 'username' in kwargs and not is_valid_username(kwargs['username']):
         add_error('نام کاربری باید با حرف شروع شود و فقط شامل حروف، اعداد و زیرخط باشد')
@@ -63,6 +61,7 @@ def user_encode(user):
     token_generator = PasswordResetTokenGenerator()
     token = token_generator.make_token(user)
     uidb64 = urlsafe_base64_encode(force_bytes(user.id))
+    PasswordResetToken.objects.create(user=user, token=token)
     return token, uidb64
 
 #decode user_id
@@ -70,6 +69,17 @@ def user_decode(uidb64):
     user_id = force_str(urlsafe_base64_decode(uidb64))
     return User.objects.get(id=user_id)
 
+
+def validate_reset_token(uidb64, token):
+    user_id = force_str(urlsafe_base64_decode(uidb64))
+    user = get_object_or_404(User, id=user_id)
+    
+    try:
+        token_record = PasswordResetToken.objects.get(user=user, token=token)
+    except PasswordResetToken.DoesNotExist:
+        return False
+
+    return token_record.is_valid()
 
 # send email function
 def SendEmail(request, email, user):
@@ -104,55 +114,80 @@ def build_email_message(first_name, reset_url):
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            @font-face {{
-                font-family: 'B Yekan';
-                src: url('https://github.com/mrlco/persian-web-fonts/blob/master/fonts/BYekan.ttf') format('truetype');
-                font-weight: normal;
-                font-style: normal;
-            }}
-            body {{
-                font-family: 'B Yekan', Arial, sans-serif;
-                background-color: #f4f4f4;
-                color: #333;
-                text-align: center;
-                padding: 20px;
-            }}
-            .container {{
-                background-color: #ffffff;
-                border-radius: 8px;
-                padding: 20px;
-                max-width: 600px;
-                margin: 0 auto;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }}
-            h1 {{
-                font-size: 24px;
-                margin-bottom: 20px;
-            }}
-            p {{
-                font-size: 25px;
-                line-height: 1.5;
-            }}
-            .button {{
-                display: inline-block;
-                font-size: 20px;
-                color: #fff;
-                background-color: #007bff;
-                padding: 15px 30px;
-                text-decoration: none;
-                border-radius: 5px;
-                margin-top: 20px;
-            }}
-            .button:hover {{
-                background-color: #0056b3;
-            }}
+                @font-face {{
+                    font-family: 'B Yekan';
+                    src: url('https://github.com/mrlco/persian-web-fonts/blob/master/fonts/BYekan.ttf') format('truetype');
+                    font-weight: normal;
+                    font-style: normal;
+                }}
+                body {{
+                    font-family: 'B Yekan', Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    text-align: center;
+                    padding: 20px;
+                }}
+                .container {{
+                    background-color: #ffffff;
+                    font-family: 'B Yekan', Arial, sans-serif;
+                    border-radius: 8px;
+                    padding: 20px;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }}
+                h1 {{
+                    font-family: 'B Yekan', Arial, sans-serif;
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }}
+                p {{
+                    font-family: 'B Yekan', Arial, sans-serif;
+                    font-size: 25px;
+                    line-height: 1.5;
+                }}
+                .button {{
+                    display: inline-block;
+                    font-size: 20px;
+                    color:#fff;
+                    background-color: #007bff;
+                    padding: 15px 30px;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    margin-top: 20px;
+                    font-family: 'B Yekan', Arial, sans-serif;
+                }}
+                .button:hover {{
+                    background-color: #0056b3;
+                    color:#fff;
+                }}
+                .ii a[href] {{
+                    color: #fff;
+                }}
+                .text-button{{
+                    color: #fff;
+                }}
+                a {{
+                    color: #007bff; /* Set the color of the link */
+                    text-decoration: none; /* Remove underline */
+                }}
+                a:visited {{
+                    color: #007bff; /* Set the color for visited links */
+                }}
+                a:hover {{
+                    color: #0056b3; /* Set the color when hovering over the link */
+                    text-decoration: none; /* Ensure underline is not added on hover */
+                }}
+                a:active {{
+                    color: #0056b3; /* Set the color for active links */
+                }}
         </style>
     </head>
     <body>
         <div class="container">
             <h1> {first_name} سلام </h1>
             <p>برای تنظیم مجدد کلمه عبور خود، لطفاً بر روی دکمه زیر کلیک کنید:</p>
-            <a href="{reset_url}" class="button">تنظیم کلمه عبور جدید</a>
+            <a href="{reset_url}" class="button"><span class="text-button">تنظیم کلمه عبور جدید</span></a>
             <p>اگر شما این درخواست را ارسال نکرده‌اید، لطفاً این ایمیل را نادیده بگیرید.</p>
         </div>
     </body>
