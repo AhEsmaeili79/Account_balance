@@ -260,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    
 });
 
 function convertNumbersToArabic(text) {
@@ -325,30 +326,32 @@ function closeEditModal() {
     document.getElementById('editModal').style.display = 'none';
 }
 
-// show pass
-// Select both password fields and their corresponding toggle icons
-const togglePassword1 = document.querySelector('#togglePassword1');
-const password1 = document.querySelector('#password');
+// // show pass
+// // Select both password fields and their corresponding toggle icons
+if (document.getElementById('form-input')) {
+    const togglePassword1 = document.querySelector('#togglePassword1');
+    const password1 = document.querySelector('#password');
 
-const togglePassword2 = document.querySelector('#togglePassword2');
-const password2 = document.querySelector('#password2');
+    const togglePassword2 = document.querySelector('#togglePassword2');
+    const password2 = document.querySelector('#password2');
 
-// Function to toggle password visibility
-function togglePasswordVisibility(toggleButton, passwordField) {
-    // Toggle the type attribute
-    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordField.setAttribute('type', type);
+    // Function to toggle password visibility
+    function togglePasswordVisibility(toggleButton, passwordField) {
+        // Toggle the type attribute
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
 
-    // Toggle the eye icon
-    toggleButton.classList.toggle('bi-eye');
-    toggleButton.classList.toggle('bi-eye-slash');
+        // Toggle the eye icon
+        toggleButton.classList.toggle('bi-eye');
+        toggleButton.classList.toggle('bi-eye-slash');
+    }
+
+    // Event listeners for each toggle button
+    togglePassword1.addEventListener('click', () => {
+        togglePasswordVisibility(togglePassword1, password1);
+    });
+
+    togglePassword2.addEventListener('click', () => {
+        togglePasswordVisibility(togglePassword2, password2);
+    });
 }
-
-// Event listeners for each toggle button
-togglePassword1.addEventListener('click', () => {
-    togglePasswordVisibility(togglePassword1, password1);
-});
-
-togglePassword2.addEventListener('click', () => {
-    togglePasswordVisibility(togglePassword2, password2);
-});

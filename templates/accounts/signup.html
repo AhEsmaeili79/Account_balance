@@ -7,7 +7,7 @@
     {% else %}
         <div class="signup-container">
             <h2 class="text-center mb-4">ثبت نام</h2>
-            <form action="{% url 'signup' %}" method="post" class="signup-form">
+            <form action="{% url 'signup' %}" method="post" class="signup-form" id="form-input">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="userName">نام کاربری</label>
