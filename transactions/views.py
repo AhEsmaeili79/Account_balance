@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Category, Transactions
-from django.contrib.auth.decorators import login_required
 
 
 # change format of date and time to shamsi
@@ -79,7 +79,7 @@ def transaction(request):
             if amount and transaction_type and transaction_date and transaction_time and transaction_category:
                 transaction_date = transaction_date.replace('/', '-')
                 has_transacion = has_transaction(amount,transaction_time,transaction_date,transaction_category,user_id,transaction_time,description)
-                print(has_transacion)
+                
                 if not has_transacion:
                     transaction = Transactions(
                         amount=amount,

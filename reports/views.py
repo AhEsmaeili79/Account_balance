@@ -1,10 +1,9 @@
 from django.shortcuts import render,redirect
-from transactions.models import Transactions,Category
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.db.models import Sum
+from transactions.models import Transactions,Category
 from .months import Months
-from collections import defaultdict
-from django.db.models import Sum, Case, When, IntegerField
 # Create your views here.
 
 # change format of date and time to shamsi

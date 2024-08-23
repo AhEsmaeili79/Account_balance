@@ -22,9 +22,10 @@ def show_balacne(request):
 
         
         balance = income_total - outcome_total
-
-        if balance < 0 :
-            balance = 0
+        nagative = False
+        if balance < 0:
+            nagative = True
+            balance = abs(balance)
 
 
     # Generate a list of years based on the transactions data
@@ -32,6 +33,7 @@ def show_balacne(request):
     years = [year.year for year in years]  # Extract just the year values
 
     context = {
+        'nagative':nagative,
         'balance': balance,
         'years': years
     }
