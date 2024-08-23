@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from accounts.models import PasswordResetToken
 from django.shortcuts import get_object_or_404
 
+token_generator = PasswordResetTokenGenerator()
 
 # validate function
 def validate(**kwargs):
@@ -64,7 +65,6 @@ def is_valid_username(username):
 
 # encode user_io and generate token 
 def user_encode(user):
-    token_generator = PasswordResetTokenGenerator()
     token = token_generator.make_token(user)
     uidb64 = urlsafe_base64_encode(force_bytes(user.id))
     PasswordResetToken.objects.create(user=user, token=token)
@@ -109,6 +109,17 @@ def SendEmail(request, email, user):
     else:
         messages.error(request, 'ایمیل به درستی وارد نشده است.')
 
+
+def register_get_data(req):
+    user_data = {
+        'username': req.POST.get('userName') or '',
+        'firstname': req.POST.get('firstName') or '',
+        'lastname': req.POST.get('lastName') or '',
+        'email': req.POST.get('email') or '',
+        'password': req.POST.get('password') or '',
+        'password_conf': req.POST.get('password2') or '',
+    }
+    return user_data
 
 
 # build message for email
@@ -216,10 +227,26 @@ def create_user(username, firstname, lastname, email, password,password_conf):
 
 def check_user_exists(username, email):
     if User.objects.filter(username=username).exists():
-        return 'نام کاربری وجود دارد'
+        return 'username_exists'
     elif User.objects.filter(email=email).exists():
-        return 'ایمیل وجود دارد'
+        return 'email_exists'
     return None
 
 def send_password_reset_email(request, user):
     SendEmail(request, [user.email], user)
+
+def get_password(req):
+    password_data = {
+        'password': req.POST.get('password'),
+        'password_conf': req.POST.get('password2')
+    }
+    return password_data
+
+
+def get_reset_password_date(req,uidb64,token):
+    user = user_decode(uidb64)
+    password_data = get_password(req)
+    password_validate = validate(request=req, **password_data)
+    token_validate = validate_reset_token(uidb64, token)
+    checked_token = token_generator.check_token(user, token)
+    return user,password_data,password_validate,token_validate,checked_token

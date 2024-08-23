@@ -1,40 +1,34 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import logout
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.models import User
+from modules.utils_acc import validate, authenticate_user, create_user, check_user_exists, send_password_reset_email,register_get_data,get_reset_password_date
 
-from modules.utils_acc import user_decode, validate, authenticate_user, create_user, check_user_exists, send_password_reset_email,validate_reset_token
-
-token_generator = PasswordResetTokenGenerator()
 
 def login_page(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        user_is_auth = authenticate_user(request, username, password)
 
-        if authenticate_user(request, username, password):
+        if user_is_auth:
             messages.success(request, 'با موفقیت وارد شدید')
             return redirect('index')
         else:
             messages.error(request, "ورود ناموفق")
             return redirect('login')
-    
+        
     return render(request, 'accounts/login.html')
+
 
 def signup_page(request):
     if request.method == 'POST':
-        user_data = {
-            'username': request.POST.get('userName') or '',
-            'firstname': request.POST.get('firstName') or '',
-            'lastname': request.POST.get('lastName') or '',
-            'email': request.POST.get('email') or '',
-            'password': request.POST.get('password') or '',
-            'password_conf': request.POST.get('password2') or '',
-        }
 
-        if validate(request=request, **user_data):
-            user_exists = check_user_exists(user_data['username'], user_data['email'])
+        user_data = register_get_data(request)
+        signup_valid = validate(request=request, **user_data)
+        user_exists = check_user_exists(user_data['username'], user_data['email'])
+
+        if signup_valid:
             if user_exists == 'username_exists':
                 messages.error(request, 'نام کاربری وجود دارد با نام کاربری دیگری امتحان کنید')
             elif user_exists == 'email_exists':
@@ -47,6 +41,7 @@ def signup_page(request):
         return redirect('signup')
     
     return render(request, 'accounts/signup.html')
+
 
 def forget_password(request):
     if request.method == 'POST':
@@ -61,19 +56,14 @@ def forget_password(request):
     
     return render(request, 'accounts/forget_password.html')
 
+
 def reset_password(request, uidb64, token):
     if request.method == "POST":
         try:
-            user = user_decode(uidb64)
-            if validate_reset_token(uidb64, token) > 0:
-                print(validate_reset_token)
-                if token_generator.check_token(user, token):
-                    password_data = {
-                        'password': request.POST.get('password'),
-                        'password_conf': request.POST.get('password2')
-                    }
-
-                    if validate(request=request, **password_data):
+            user,password_data,password_validate,token_validate,checked_token = get_reset_password_date(request,uidb64,token)
+            if token_validate > 0:
+                if checked_token:
+                    if password_validate:
                         user.set_password(password_data['password'])
                         user.save()
                         messages.success(request, 'کلمه عبور با موفقیت تغییر کرد')
@@ -88,6 +78,7 @@ def reset_password(request, uidb64, token):
             return redirect('forget_password')
 
     return render(request, 'accounts/reset_password.html')
+
 
 def logout_view(request):
     logout(request)
