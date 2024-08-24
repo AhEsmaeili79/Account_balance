@@ -4,7 +4,6 @@ from django.contrib import messages
 from modules.utils_repo import change_format_time
 from modules.utils_trans import has_transaction,check_int ,filter_by_type,get_from_post,update_trans,create_trans,is_valid_datetime
 from .models import Category, Transactions
-from datetime import datetime, timedelta
 
 
 @login_required(login_url='login')

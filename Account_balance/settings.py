@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-49ze4)$$52-((g*vyz_)!3&z77sp+%h6$6uip$)o0iz=n8t9d%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -82,13 +82,26 @@ WSGI_APPLICATION = "Account_balance.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Postgresql
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": 'account_blnce',
+#         'USER' : 'postgres',
+#         'PASSWORD' : '137919',
+#         'HOST' : 'localhost',
+#     }
+# }
+
+# MYSQL Pass = Amr1379hssn!
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.mysql",
         "NAME": 'account_blnce',
-        'USER' : 'postgres',
-        'PASSWORD' : '137919',
-        'HOST' : 'localhost',
+        'USER' : 'Blnce',
+        'PASSWORD' : 'Amr1379hssn!',
+        'HOST' : 'Blnce.mysql.pythonanywhere-services.com',
     }
 }
 
