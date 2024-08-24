@@ -7,6 +7,9 @@ from django.contrib import messages,auth
 from django.contrib.auth.models import User
 from accounts.models import PasswordResetToken
 from django.shortcuts import get_object_or_404
+import jdatetime
+from datetime import datetime
+
 
 token_generator = PasswordResetTokenGenerator()
 
@@ -92,7 +95,11 @@ def SendEmail(request, email, user):
     if is_valid_email(email[0]):
         token, uidb64 = user_encode(user)
         reset_url = request.build_absolute_uri(f'/accounts/reset-password/{uidb64}/{token}/')
-        message = build_email_message(user.first_name, reset_url)
+        now = datetime.now()
+        persian_date_time = jdatetime.datetime.fromgregorian(datetime=now)
+        time = persian_date_time.strftime('%Y/%m/%d %H:%M:%S')
+
+        message = build_email_message(user.first_name, reset_url, time)
 
         email_message = EmailMessage(
             subject='رمز عبور خود را فراموش کردی؟',
@@ -123,7 +130,7 @@ def register_get_data(req):
 
 
 # build message for email
-def build_email_message(first_name, reset_url):
+def build_email_message(first_name, reset_url, time):
     return f"""
     <!DOCTYPE html>
     <html lang="fa">
@@ -203,6 +210,7 @@ def build_email_message(first_name, reset_url):
     <body>
         <div class="container">
             <h1> {first_name} سلام </h1>
+            <p>شما در {time}درخواست تغییر کلمه عبور کرده اید</p>
             <p>برای تنظیم مجدد کلمه عبور خود، لطفاً بر روی دکمه زیر کلیک کنید:</p>
             <a href="{reset_url}" class="button"><span class="text-button">تنظیم کلمه عبور جدید</span></a>
             <p>اگر شما این درخواست را ارسال نکرده‌اید، لطفاً این ایمیل را نادیده بگیرید.</p>
@@ -241,7 +249,6 @@ def get_password(req):
         'password_conf': req.POST.get('password2')
     }
     return password_data
-
 
 def get_reset_password_date(req,uidb64,token):
     user = user_decode(uidb64)

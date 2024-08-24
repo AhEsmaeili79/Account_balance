@@ -1,40 +1,12 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from modules.utils_repo import change_format_time
+from modules.utils_trans import has_transaction,check_int ,filter_by_type,get_from_post,update_trans,create_trans
 from .models import Category, Transactions
 
 
-# change format of date and time to shamsi
-def format_date_time(transaction):
-    Tr_date,Tr_time = transaction.transaction_date,transaction.transaction_time
-    if Tr_date:
-        transaction.transaction_date = Tr_date.strftime('%Y/%m/%d')
-    if Tr_time:
-        transaction.transaction_time = Tr_time.strftime('%H:%M')
-    return transaction
-
-
-def has_transaction(am,Tr_T,Tr_d,Tr_Cat,U_id,Tr_Time,Desc):
-    has_transacion = Transactions.objects.filter(amount=am,
-                                                     transaction_type=Tr_T,
-                                                     transaction_date=Tr_d,
-                                                     user_id=U_id,
-                                                     category_id=Tr_Cat,
-                                                     transaction_time=Tr_Time,
-                                                     description=Desc).exists()
-    return has_transacion
-
-
-def can_be_integer(value):
-    try:
-        int(value)
-        return True
-    except (ValueError, TypeError):
-        return False
-
-
 @login_required(login_url='login')
-# category view 
 def show_category(request):
     context = {}
     if request.user.is_authenticated:
@@ -63,33 +35,25 @@ def show_category(request):
 
 
 @login_required(login_url='login')
-# transaction view
 def transaction(request):
     if 'add_transaction' in request.POST:
-        amount = request.POST.get('amount')
+        amount,transaction_date,transaction_time,transaction_category,user_id,description = get_from_post(request,'amount',
+                                                                                                          'transactionDate',
+                                                                                                          'transactionTime',
+                                                                                                          'category',
+                                                                                                          'user_id',
+                                                                                                          'description')
         transaction_type = request.POST.get('transactionType')
-        transaction_date = request.POST.get('transactionDate')
-        transaction_time = request.POST.get('transactionTime')
-        transaction_category = request.POST.get('category')
-        user_id = request.POST.get('user_id')
-        description = request.POST.get('description')
     
-        if can_be_integer(amount):
-            amount = int(amount)
+        if check_int(amount):
             if amount and transaction_type and transaction_date and transaction_time and transaction_category:
                 transaction_date = transaction_date.replace('/', '-')
                 has_transacion = has_transaction(amount,transaction_time,transaction_date,transaction_category,user_id,transaction_time,description)
                 
                 if not has_transacion:
-                    transaction = Transactions(
-                        amount=amount,
-                        transaction_type=transaction_type,
-                        transaction_date=transaction_date,
-                        transaction_time=transaction_time,
-                        category_id= Category.objects.get(id=transaction_category, user_id__in=[user_id, 0]),
-                        user_id=user_id,
-                        description=description
-                    )
+                    transaction = create_trans(amount,transaction_type,transaction_date,
+                                               transaction_time,transaction_category,
+                                               user_id,description)
                     transaction.save()
                     return redirect('add_transactions')
                 else:
@@ -101,18 +65,19 @@ def transaction(request):
         else:
             messages.error(request,"لطفا مقدار را عدد وارد کنید")
 
-
-    transaction_outcome = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='outcome')
-    transaction_income = Transactions.objects.order_by('-transaction_date','-transaction_time').filter(user_id=request.user.id, transaction_type='income')
+    
+    transaction_income = filter_by_type(request,'income')
+    transaction_outcome = filter_by_type(request,'outcome')
+    
     category_list = Category.objects.filter(user_id=0) | Category.objects.filter(user_id=request.user.id)
 
     # Format dates and times for display
-    transaction_outcome = [format_date_time(txn) for txn in transaction_outcome]
-    transaction_income = [format_date_time(txn) for txn in transaction_income]
+    tr_income = change_format_time(transaction_income)
+    tr_outcome = change_format_time(transaction_outcome)
 
     context = {
-        'transaction_outcome': transaction_outcome,
-        'transaction_income': transaction_income,
+        'transaction_outcome': tr_outcome,
+        'transaction_income': tr_income,
         'category': category_list,
     }
 
@@ -123,29 +88,22 @@ def transaction(request):
 def edit_transaction(request):
     if 'edit_transaction' in request.POST:
         transaction_id = request.POST.get('transaction_id')
-        amount_update = request.POST.get('amount')
-        transaction_date_update = request.POST.get('transactionDate')
-        transaction_time_update = request.POST.get('transactionTime')
-        transaction_category_update = request.POST.get('category')
-        user_id = request.POST.get('user_id')
-        description_update = request.POST.get('description')
+
+        amount_update,transaction_date_update,transaction_time_update,transaction_category_update,user_id,description_update = get_from_post(request,'amount',
+                                                                                                                                             'transactionDate',
+                                                                                                                                             'transactionTime',
+                                                                                                                                             'category',
+                                                                                                                                             'user_id',
+                                                                                                                                             'description')
 
         transaction = get_object_or_404(Transactions,id=transaction_id)
         
 
-        transaction_date_update = transaction_date_update.replace('/', '-')
-        if amount_update:
-            transaction.amount = amount_update
-        if transaction_date_update:
-            transaction.transaction_date = transaction_date_update
-        if transaction_time_update:
-            transaction.transaction_time = transaction_time_update
-        if transaction_category_update:
-            transaction.category_id = Category.objects.get(id=transaction_category_update, user_id__in=[user_id, 0])
-        if description_update or description_update == "":
-            transaction.description = description_update
+        trsnation = update_trans(transaction, amount_update, transaction_date_update,
+                                transaction_time_update,transaction_category_update,
+                                user_id,description_update)
 
-        transaction.save()
+        trsnation.save()
         return redirect('add_transactions')
     
     return render(request, 'transactions/transactions.html')
@@ -155,7 +113,6 @@ def edit_transaction(request):
 def delete_transaction(request):
     if 'delete_transaction' in request.POST:
         transaction_id = request.POST.get('transaction_id')
-        print(transaction_id)
         transaction_delete = Transactions.objects.filter(id=transaction_id)
         transaction_delete.delete()
 
