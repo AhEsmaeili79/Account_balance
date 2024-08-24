@@ -1,7 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    
     var messageElement = document.getElementById('message');
     if (messageElement) {
         setTimeout(function() {
@@ -357,3 +356,4 @@ if (document.getElementById('form-input')) {
     });
     }
 }
+

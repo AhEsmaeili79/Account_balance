@@ -1,15 +1,16 @@
 from transactions.models import Category, Transactions
+from datetime import datetime
 
-def has_transaction(am,Tr_T,Tr_d,Tr_Cat,U_id,Tr_Time,Desc):
-    has_transacion = Transactions.objects.filter(amount=am,
-                                                     transaction_type=Tr_T,
-                                                     transaction_date=Tr_d,
-                                                     user_id=U_id,
-                                                     category_id=Tr_Cat,
-                                                     transaction_time=Tr_Time,
-                                                     description=Desc).exists()
-    return has_transacion
-
+def has_transaction(amount, tran_type, tran_date, category_id, user_id, trans_time, desc):
+    return Transactions.objects.filter(
+        amount=amount,
+        transaction_type=tran_type,
+        transaction_date=tran_date,
+        user_id=user_id,
+        category_id=category_id,
+        transaction_time=trans_time,
+        description=desc
+    ).exists()
 
 def check_int(value):
     try:
@@ -35,9 +36,9 @@ def get_from_post(req,amnt,Tr_date,Tr_time,Cat,U_id,Desc):
 
 def update_trans(transaction,amount,transaction_date,transaction_time,transaction_category,user_id,description):
     if amount:
-        transaction.amount = amount
+        amount = int(amount)
+        transaction.amount = abs(amount)
     if transaction_date:
-        transaction_date = transaction_date.replace('/', '-')
         transaction.transaction_date = transaction_date
     if transaction_time:
         transaction.transaction_time = transaction_time
@@ -49,8 +50,21 @@ def update_trans(transaction,amount,transaction_date,transaction_time,transactio
     return transaction
 
 def create_trans(amt,tr_type,tr_date,tr_time,tr_cat,user_id,desc):
-    transaction = Transactions(amount=amt,transaction_type=tr_type,
-                               transaction_date=tr_date,tr_time=tr_time,
+    amt = int(amt)
+    transaction = Transactions(amount=abs(amt),transaction_type=tr_type,
+                               transaction_date=tr_date,
+                               transaction_time=tr_time,
                                category_id= Category.objects.get(id=tr_cat, user_id__in=[user_id, 0]),
                                user_id=user_id,description=desc)
     return transaction
+
+def is_valid_datetime(date_string, time_string):
+    try:
+        # Combine date and time strings and validate
+        datetime.strptime(f'{date_string} {time_string}', '%Y-%m-%d %H:%M:%S')
+        return True
+    except ValueError:
+        return False
+    
+    
+    

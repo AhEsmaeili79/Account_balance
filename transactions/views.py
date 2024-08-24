@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from modules.utils_repo import change_format_time
-from modules.utils_trans import has_transaction,check_int ,filter_by_type,get_from_post,update_trans,create_trans
+from modules.utils_trans import has_transaction,check_int ,filter_by_type,get_from_post,update_trans,create_trans,is_valid_datetime
 from .models import Category, Transactions
+from datetime import datetime, timedelta
 
 
 @login_required(login_url='login')
@@ -44,24 +45,26 @@ def transaction(request):
                                                                                                           'user_id',
                                                                                                           'description')
         transaction_type = request.POST.get('transactionType')
-    
+        print(is_valid_datetime(transaction_date,transaction_time))
+        
         if check_int(amount):
             if amount and transaction_type and transaction_date and transaction_time and transaction_category:
                 transaction_date = transaction_date.replace('/', '-')
-                has_transacion = has_transaction(amount,transaction_time,transaction_date,transaction_category,user_id,transaction_time,description)
-                
-                if not has_transacion:
-                    transaction = create_trans(amount,transaction_type,transaction_date,
-                                               transaction_time,transaction_category,
-                                               user_id,description)
-                    transaction.save()
-                    return redirect('add_transactions')
+                if is_valid_datetime(transaction_date, transaction_time):
+                    transaction_exists = has_transaction(amount, transaction_type, transaction_date,transaction_category, user_id, transaction_time, description)
+                    if not transaction_exists:
+                        transaction = create_trans(amount,transaction_type,transaction_date,
+                                                transaction_time,transaction_category,
+                                                user_id,description)
+                        transaction.save()
+                        return redirect('add_transactions')
+                    else:
+                        messages.error(request,"این تراکنش در سیستم وجود دارد!")
+                        return redirect('add_transactions')
                 else:
-                    messages.error(request,"این تراکنش در سیستم وجود دارد!")
-                    return redirect('add_transactions')
-                
+                        messages.error(request,"تاریخ و زمان را به صورت درست وارد کنید")
             else:
-                messages.error(request, 'All fields are required.')
+                    messages.error(request, "تمام مقادیر را وارد کنید")
         else:
             messages.error(request,"لطفا مقدار را عدد وارد کنید")
 
@@ -98,13 +101,17 @@ def edit_transaction(request):
 
         transaction = get_object_or_404(Transactions,id=transaction_id)
         
+        transaction_date_update = transaction_date_update.replace('/', '-')
+        if is_valid_datetime(transaction_date_update, transaction_time_update):
+            trsnation = update_trans(transaction, amount_update, transaction_date_update,
+                                    transaction_time_update,transaction_category_update,
+                                    user_id,description_update)
 
-        trsnation = update_trans(transaction, amount_update, transaction_date_update,
-                                transaction_time_update,transaction_category_update,
-                                user_id,description_update)
-
-        trsnation.save()
-        return redirect('add_transactions')
+            trsnation.save()
+            return redirect('add_transactions')
+        else:
+            messages.error(request," تاریخ و زمان را به صورت درست وارد کنید و حتما دارای ثانیه باشد.")
+            return redirect('add_transactions')
     
     return render(request, 'transactions/transactions.html')
 

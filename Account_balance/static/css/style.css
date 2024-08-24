@@ -8,11 +8,15 @@
     font-family: "Qs Iranyekan", Arial, sans-serif;
 }
 
-/* Basic styles for body */
-body, h1, h2, h3, p, ul, li {
-    direction: rtl;
+html{
+    height: 100%;
     margin: 0;
     padding: 0;
+    direction: rtl;
+}
+
+/* Basic styles for body */
+body, h1, h2, h3, p, ul, li {
     box-sizing: border-box; /* Ensure proper box sizing */
     text-align: right;
 }
@@ -23,8 +27,6 @@ body {
     color: #333;
     line-height: 1.6; /* Improved readability */
     background-color: #f0f8ff;
-    font-family: 'Arial', sans-serif;
-    direction: rtl;
     margin: 0;
     padding: 0;
 }
@@ -39,27 +41,32 @@ body::before {
     margin-right: 50px;
 }
 
-/* chart */
 
+/* General styles for the topbar */
 .topbar {
-    background-color: #87cefa;
-    padding: 10px 0;
+    background-color: #4a90e2; /* A modern blue color */
+    padding: 10px 20px;
     color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .topbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .topbar .date-time {
     font-size: 0.9em;
+    color: #f0f0f0;
 }
 
 .topbar .user-actions {
@@ -69,19 +76,73 @@ body::before {
 
 .topbar .user-actions a {
     color: #fff;
-    margin-left: 15px;
+    margin-left: 20px;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s;
-}
-.balance_num{
-    direction: ltr;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 .topbar .user-actions a:hover {
-    color: #68f1cf;
+    color: #fff;
+    background-color: #007bb5; /* Darker blue for hover effect */
 }
 
+
+/* Toggle button styles */
+.toggle-button {
+    display: none;
+    background: #4a90e2; /* Matches the topbar color */
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: #007bb5; /* Darker blue on hover */
+}
+
+/* Mobile view styles */
+@media (max-width: 768px) {
+    .topbar .user-actions {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #4a90e2; /* Same as topbar */
+        position: absolute;
+        top: 50px;
+        left: 0;
+        z-index: 999;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .topbar .user-actions.active {
+        display: flex;
+    }
+
+    .toggle-button {
+        display: block;
+    }
+
+    .topbar .user-actions a {
+        margin: 10px 0;
+        text-align: center;
+    }
+}
+
+
+
+/* Balance */
+
+
+.balance_num {
+    direction: ltr;
+}
 
 .content {
     text-align: center;
@@ -713,17 +774,87 @@ a.card-link{
 .input-wrapper .toggle-password i {
     font-size: 18px;
 }
+.error-404{
+    color: #87cefa ;
+    text-decoration: none;
+}
 
 
 /* Footer */
-.footer {
-    background-color: #87cefa;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+.content {
+    flex: 1; /* Allows the content area to take up remaining space */
 }
 
+.box {
+    margin: 100px;  /* Adds space outside the element */
+    padding: 20px; /* Adds space inside the element */
+}
+/* Footer styling */
+.footer {
+    background-color: #282c34; /* Dark background for the footer */
+    color: #e0e0e0; /* Light grey text color */
+    padding: 20px 0;
+    text-align: center; /* Center-align text */
+    width: 100%;
+    position: fixed;
+    bottom: 0; /* Align to the left edge */
+    z-index: 1000; /* Ensure the footer is above other content */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for a lifted effect */
+}
+
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto; /* Center container */
+    padding: 0 20px;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.5; /* Improved readability */
+    text-align: center;
+}
+
+.footer-text a {
+    color: #2194a8; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.footer-text a:hover {
+    color: #fff; /* Change color on hover */
+}
+
+/* Footer links styling */
+.footer-links {
+    margin-top: 10px;
+    text-align: center; /* Center-align footer links */
+}
+
+.footer-links .footer-link {
+    color: #e0e0e0; /* Link color */
+    text-decoration: none;
+    margin: 0 15px; /* Spacing between links */
+    font-weight: bold;
+    transition: color 0.3s, background-color 0.3s; /* Smooth transitions */
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.footer-links .footer-link:hover {
+    color: #ffffff; /* Lighter color on hover */
+    background-color: #4a90e2; /* Background color on hover */
+}
+
+/* Responsive design for footer */
+@media (max-width: 768px) {
+    .footer-links {
+        display: block;
+        margin-top: 10px;
+    }
+
+    .footer-links .footer-link {
+        display: block;
+        margin: 5px 0;
+    }
+}
