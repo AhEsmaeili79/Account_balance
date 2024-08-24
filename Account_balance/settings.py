@@ -83,27 +83,27 @@ WSGI_APPLICATION = "Account_balance.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 # Postgresql
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": 'account_blnce',
-#         'USER' : 'postgres',
-#         'PASSWORD' : '137919',
-#         'HOST' : 'localhost',
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": 'account_blnce',
+        'USER' : 'postgres',
+        'PASSWORD' : '137919',
+        'HOST' : 'localhost',
+    }
+}
 
 # MYSQL Pass = Amr1379hssn!
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": 'account_blnce',
-        'USER' : 'Blnce',
-        'PASSWORD' : 'Amr1379hssn!',
-        'HOST' : 'Blnce.mysql.pythonanywhere-services.com',
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": 'account_blnce',
+#         'USER' : 'Blnce',
+#         'PASSWORD' : 'Amr1379hssn!',
+#         'HOST' : 'Blnce.mysql.pythonanywhere-services.com',
+#     }
+# }
 
 
 # Password validation

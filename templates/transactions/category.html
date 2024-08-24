@@ -5,7 +5,7 @@
 <div class="container">
     <!-- Default Categories -->
     <div class="category-container">
-        <h2>دسته‌بندی‌های پیش‌فرض</h2>
+        <h4>دسته‌بندی‌های پیش‌فرض</h4>
         {% if category %}
             {% for cat in category %}
                 <div class="category-card">
@@ -17,7 +17,7 @@
 
     <!-- Add New Category Form -->
     <div class="category-form ">
-        <h2 class="category-container">اضافه کردن دسته‌بندی جدید</h2>
+        <h4 class="category-container">اضافه کردن دسته‌بندی جدید</h4>
         {% if user.is_authenticated %}
         <form action="{% url 'add_category' %}" method="post">
             {% csrf_token %}
@@ -32,19 +32,68 @@
 
     <!-- User-Added Categories -->
     <div class="category-container">
-        <h2>دسته‌بندی‌های اضافه‌شده توسط کاربر</h2>
+        <h4>دسته‌بندی‌های اضافه‌شده توسط کاربر</h4>
         <!-- Example User Added Category -->
         {% if category_user %}
             {% for cat in category_user %}
                 <div class="category-card">
                     <span>{{ cat.category_name }}</span>
                     <div>
-                        <button class="btn btn-warning btn-sm">ویرایش</button>
-                        <button class="btn btn-danger btn-sm">حذف</button>
+                        <button class="btn btn-warning btn-sm edit-btn" onclick="showEditCatModal({{ cat.id }},'{{ cat.category_name }}');">ویرایش</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="showDelete_Cat({{cat.id}});">حذف</button>
                     </div>    
             </div>
             {% endfor %}
         {% endif%}
     </div>
 </div>
+
+
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content">
+        <p>آیا از حذف این تراکنش مطمئن هستید؟</p>
+        <form action="{% url 'delete_category' %}" id="deleteForm" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="cat_id" id="modalCatId">
+            <input type="hidden" name="delete_category" value="delete_category" id="modalTransaction">
+            <button type="submit" class="btn btn-danger">حذف</button>
+            <button type="button" class="btn btn-secondary" onclick="closeConfirmModal();">انصراف</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+<!-- Edit Transaction Modal -->
+<div id="editCatModal" class="modal">
+    <div class="modal-content">
+        <h4 class="text-center">ویرایش تراکنش</h4>
+        <form action="{% url 'edit_category' %}" id="editForm" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="category_id" id="editCategoryId">
+            <input type="hidden" name="edit_Category" value="edit_Category" id="modalCategory">
+            <div class="form-group">
+                <label for="category_name">دسته بندی</label>
+                <input type="text" class="form-control" id="category_name" name="cateogry_name" autocomplete="off" data-jdp placeholder="امکان انتخاب فقط زمان" data-jdp-only-time required/>
+            </div>
+            <button type="submit" class="btn btn-primary">ذخیره</button>
+            <button type="button" class="btn btn-secondary" onclick="closeEditModal();">انصراف</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

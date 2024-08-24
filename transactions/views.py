@@ -106,7 +106,9 @@ def edit_transaction(request):
                                     user_id,description_update)
 
             trsnation.save()
+            messages.success(request,"تغییر تراکنش با موفقیت انجام شد.")
             return redirect('add_transactions')
+        
         else:
             messages.error(request," تاریخ و زمان را به صورت درست وارد کنید و حتما دارای ثانیه باشد.")
             return redirect('add_transactions')
@@ -126,3 +128,35 @@ def delete_transaction(request):
     else:
         messages.error(request,"حذف تراکنش با شکست مواجه شد.")
         return redirect('add_transactions')
+
+
+@login_required(login_url='login')
+def delete_category(request):
+    if 'delete_category' in request.POST:
+        Category_id = request.POST.get('cat_id')
+        Category_delete = Category.objects.filter(id=Category_id)
+        Category_delete.delete()
+
+        messages.success(request,"تراکنش با موفقیت حذف شد.")
+        return redirect('add_category')
+    else:
+        messages.error(request,"حذف تراکنش با شکست مواجه شد.")
+        return redirect('add_category')
+
+
+@login_required(login_url='login')
+def edit_category(request):
+    if 'edit_Category' in request.POST:
+        Category_id = request.POST.get('category_id')
+        category_name = request.POST.get('cateogry_name')
+        cat = get_object_or_404(Category,id=Category_id)
+        if cat:
+            cat.category_name = category_name
+            cat.save()
+            messages.success(request,"تغییر دسته بندی با موفقیت انجام شد")
+            return redirect('add_category')
+        else:
+            messages.error(request,"تغییر دسته بندی با شکست مواجه شد")
+            return redirect('add_category')
+    
+    return render(request, 'transactions/category.html')

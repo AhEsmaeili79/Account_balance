@@ -305,6 +305,13 @@ function showConfirmModal(transactionId) {
     document.getElementById('confirmModal').style.display = 'block';
 }
 
+function showDelete_Cat(CatId) {
+    document.getElementById('modalCatId').value = CatId;
+    document.getElementById('confirmModal').style.display = 'block';
+}
+
+
+
 function closeConfirmModal() {
     document.getElementById('confirmModal').style.display = 'none';
 }
@@ -320,8 +327,15 @@ function showEditModal(id, amount, date, time, category, description) {
     document.getElementById('editModal').style.display = 'block';
 }
 
+function showEditCatModal(cat_id ,category_name) {
+    document.getElementById('editCategoryId').value = cat_id;
+    document.getElementById('category_name').value = category_name;
+    document.getElementById('editCatModal').style.display = 'block';
+    console.log(cat_id ,category_name)
+}
+
 function closeEditModal() {
-    document.getElementById('editModal').style.display = 'none';
+    document.getElementById('editCatModal').style.display = 'none';
 }
 
 // // show pass
