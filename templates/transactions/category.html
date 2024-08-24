@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% block title%}دسته بندی ها{% endblock %}
 {% block content %}
   
 <div class="container">
@@ -50,7 +50,7 @@
 
 
 <!-- Confirmation Modal -->
-<div id="confirmModal" class="modal">
+<div id="confirmCatModal" class="modal">
     <div class="modal-content">
         <p>آیا از حذف این تراکنش مطمئن هستید؟</p>
         <form action="{% url 'delete_category' %}" id="deleteForm" method="post">

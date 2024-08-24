@@ -299,44 +299,47 @@ function convertAllNumbersToArabic() {
 document.addEventListener('DOMContentLoaded', convertAllNumbersToArabic);
 
 
-// Modal Delete alert
-function showConfirmModal(transactionId) {
-    document.getElementById('modalTransactionId').value = transactionId;
-    document.getElementById('confirmModal').style.display = 'block';
-}
-
-function showDelete_Cat(CatId) {
-    document.getElementById('modalCatId').value = CatId;
-    document.getElementById('confirmModal').style.display = 'block';
-}
-
-
-
-function closeConfirmModal() {
-    document.getElementById('confirmModal').style.display = 'none';
-}
-
-
-function showEditModal(id, amount, date, time, category, description) {
-    document.getElementById('editTransactionId').value = id;
-    document.getElementById('editAmount').value = amount;
-    document.getElementById('editTransactionDate').value = date;
-    document.getElementById('editTransactionTime').value = time;
-    document.getElementById('editCategory').value = category;
-    document.getElementById('editDescription').value = description;
-    document.getElementById('editModal').style.display = 'block';
-}
-
-function showEditCatModal(cat_id ,category_name) {
-    document.getElementById('editCategoryId').value = cat_id;
-    document.getElementById('category_name').value = category_name;
-    document.getElementById('editCatModal').style.display = 'block';
-    console.log(cat_id ,category_name)
-}
-
-function closeEditModal() {
-    document.getElementById('editCatModal').style.display = 'none';
-}
+if (document.getElementById('transactions-container')) {
+    // Modal Delete alert
+    function showConfirmModal(transactionId) {
+        document.getElementById('modalTransactionId').value = transactionId;
+        document.getElementById('confirmModal').style.display = 'block';
+    }}
+if (document.getElementById('modalCatId')) {
+    function showDelete_Cat(CatId) {
+        document.getElementById('modalCatId').value = CatId;
+        document.getElementById('confirmCatModal').style.display = 'block';
+    }}
+    
+if (document.getElementById('transactions-container')) {
+    function closeConfirmModal() {
+        document.getElementById('confirmModal').style.display = 'none';
+    }}
+    
+if (document.getElementById('transactions-container')) {
+    function showEditModal(id, amount, date, time, category, description) {
+        document.getElementById('editTransactionId').value = id;
+        document.getElementById('editAmount').value = amount;
+        document.getElementById('editTransactionDate').value = date;
+        document.getElementById('editTransactionTime').value = time;
+        document.getElementById('editCategory').value = category;
+        document.getElementById('editDescription').value = description;
+        document.getElementById('editModal').style.display = 'block';
+    }}
+if (document.getElementById('editCatModal')) {
+    function showEditCatModal(cat_id ,category_name) {
+        document.getElementById('editCategoryId').value = cat_id;
+        document.getElementById('category_name').value = category_name;
+        document.getElementById('editCatModal').style.display = 'block';
+    }}
+if (document.getElementById('transactions-container')) {
+    function closeEditModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }}
+if (document.getElementById('editCatModal')) {
+    function closeEditModal() {
+        document.getElementById('editCatModal').style.display = 'none';
+    }}
 
 // // show pass
 // // Select both password fields and their corresponding toggle icons
