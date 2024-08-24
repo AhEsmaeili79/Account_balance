@@ -301,7 +301,6 @@ document.addEventListener('DOMContentLoaded', convertAllNumbersToArabic);
 
 // Modal Delete alert
 function showConfirmModal(transactionId) {
-    console.log(transactionId)
     document.getElementById('modalTransactionId').value = transactionId;
     document.getElementById('confirmModal').style.display = 'block';
 }

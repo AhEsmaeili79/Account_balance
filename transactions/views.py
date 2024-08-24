@@ -45,7 +45,6 @@ def transaction(request):
                                                                                                           'user_id',
                                                                                                           'description')
         transaction_type = request.POST.get('transactionType')
-        print(is_valid_datetime(transaction_date,transaction_time))
         
         if check_int(amount):
             if amount and transaction_type and transaction_date and transaction_time and transaction_category:

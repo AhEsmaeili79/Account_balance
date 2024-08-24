@@ -1,0 +1,37 @@
+* {
+    font-family: "iransans", "samim", "vazir", "tahoma";
+  }
+  body {
+    font-size: 14px;
+    background-color: #fcfcfc;
+  }
+  input {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    height: 38px;
+    line-height: 38px;
+    width: 309px;
+    font-size: 16px;
+    padding: 0 5px;
+    color: #666;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    text-align: center;
+  }
+  
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    text-align: center;
+  }
+  
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    text-align: center;
+  }
+  

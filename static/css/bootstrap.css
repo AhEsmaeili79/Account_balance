@@ -3754,7 +3754,7 @@ button.close {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1050;
+  z-index: 1000;
   display: none;
   overflow: hidden;
   outline: 0; }
@@ -5232,6 +5232,10 @@ button.bg-dark:focus {
 .ml-5,
 .mx-5 {
   margin-left: 3rem !important; }
+
+.mt-10,
+.my-10 {
+  margin-top: 100px !important; }
 
 .p-0 {
   padding: 0 !important; }

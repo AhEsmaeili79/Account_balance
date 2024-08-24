@@ -8,11 +8,17 @@
     font-family: "Qs Iranyekan", Arial, sans-serif;
 }
 
-/* Basic styles for body */
-body, h1, h2, h3, p, ul, li {
+html{
+    height: 100%;
     margin: 0;
     padding: 0;
+    direction: rtl;
+}
+
+/* Basic styles for body */
+body, h1, h2, h3, p, ul, li {
     box-sizing: border-box; /* Ensure proper box sizing */
+    text-align: right;
 }
 
 body {
@@ -20,7 +26,835 @@ body {
     background-color: #f2f2f2;
     color: #333;
     line-height: 1.6; /* Improved readability */
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
 }
+
+
+body::before {
+    content: "";
+    direction: rtl;
+}
+
 .header p{
     margin-right: 50px;
+}
+
+
+/* General styles for the topbar */
+.topbar {
+    background-color: #4a90e2; /* A modern blue color */
+    padding: 10px 20px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.topbar .date-time {
+    font-size: 0.9em;
+    color: #f0f0f0;
+}
+
+.topbar .user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.topbar .user-actions a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, background-color 0.3s;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.topbar .user-actions a:hover {
+    color: #fff;
+    background-color: #007bb5; /* Darker blue for hover effect */
+}
+
+
+/* Toggle button styles */
+.toggle-button {
+    display: none;
+    background: #4a90e2; /* Matches the topbar color */
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: #007bb5; /* Darker blue on hover */
+}
+
+/* Mobile view styles */
+@media (max-width: 768px) {
+    .topbar .user-actions {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #4a90e2; /* Same as topbar */
+        position: absolute;
+        top: 50px;
+        left: 0;
+        z-index: 999;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .topbar .user-actions.active {
+        display: flex;
+    }
+
+    .toggle-button {
+        display: block;
+    }
+
+    .topbar .user-actions a {
+        margin: 10px 0;
+        text-align: center;
+    }
+}
+
+
+
+/* Balance */
+
+
+.balance_num {
+    direction: ltr;
+}
+
+.content {
+    text-align: center;
+}
+
+.welcome-message {
+    font-size: 1.5em;
+    color: #4682b4;
+    margin: 20px 0;
+    margin-top: 100px;
+    animation: fadeIn 2s;
+}
+
+.balance-display {
+    font-size: 2.5em;
+    color: #4682b4;
+    margin: 20px 0;
+    animation: zoomIn 1.5s;
+}
+
+.button-group {
+    margin: 20px 0;
+}
+
+.button-group .btn {
+    margin: 0 10px;
+}
+
+/* chart  */
+#chartPage {
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+}
+#yearSelector {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.chart-container {
+    position: relative;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 900px;
+    height: 50vh;
+    text-align: center;
+}
+
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+.details-container {
+    margin-top: 20px;
+}
+
+/* Details Content */
+#detailsContent {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 900px;
+    margin: 20px auto; /* Centered and responsive */
+    text-align: right; /* Right-align text for RTL layout */
+}
+
+#detailsContent h3 {
+    font-size: 1.4em;
+    color: #4682b4;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4682b4;
+    padding-bottom: 10px;
+}
+
+#detailsContent p {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+#detailsContent ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+#detailsContent ul li {
+    margin-bottom: 10px;
+}
+
+#detailsContent table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#detailsContent table, #detailsContent th, #detailsContent td {
+    border: 1px solid #ddd;
+}
+
+#detailsContent th, #detailsContent td {
+    padding: 10px;
+    text-align: right; /* Right-align text for RTL layout */
+}
+
+#detailsContent th {
+    background-color: #f2f2f2;
+    color: #4682b4;
+}
+
+#detailsContent tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #detailsContent {
+        padding: 15px;
+    }
+
+    #detailsContent h3 {
+        font-size: 1.2em;
+    }
+
+    #detailsContent p {
+        font-size: 0.9em;
+    }
+
+    #detailsContent table, #detailsContent th, #detailsContent td {
+        font-size: 0.9em;
+    }
+}
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+.card {
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin: 10px;
+    padding: 15px;
+    width: 300px;
+    text-align: right;
+}
+
+.card h5 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin: 5px 0;
+}
+
+
+/* Styling for the active button */
+.btn.active {
+    background-color: #1466be; /* Darker blue for active state */
+    border-color: #0056b3; /* Darker blue border for active state */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for emphasis */
+    color: #ffffff; /* Keep text color white for readability */
+}
+
+.btn.active:hover {
+    background-color: #004494; /* Even darker blue on hover when active */
+    border-color: #004494; /* Even darker blue border on hover when active */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Maintain shadow */
+}
+
+/* end chart */
+
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+
+/* category */
+
+.category-container {
+    margin-top: 20px;
+    text-align: right;
+}
+.category-card {
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin: 10px 0;
+    padding: 15px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.category-card .btn {
+    margin-left: 10px;
+}
+.category-form {
+    margin-top: 20px;
+}
+.category-form input {
+    margin-right: 10px;
+}
+
+
+/* LoginPage */
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+.login-form button {
+    margin-top: 10px;
+}
+.text-center a {
+    color: #007bff;
+    text-decoration: none;
+}
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+/* signup Page */
+.signup-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.signup-form {
+    display: flex;
+    flex-direction: column;
+}
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.form-group label {
+    width: 90px;
+    text-align: right;
+}
+.form-group input {
+    flex: 1;
+}
+.signup-form button {
+    margin-top: 10px;
+}
+.text-center a {
+    color: #007bff;
+    text-decoration: none;
+}
+.text-center a:hover {
+    text-decoration: underline;
+}
+
+/* transactions */
+.transactions-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.transaction-card {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: none; /* Initially hidden */
+}
+
+.transaction-card p {
+    margin: 0;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.filter-buttons button {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.add-transaction-btn {
+    display: block;
+    margin: 30px auto;
+    width: 100%;
+}
+
+.transaction-form {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.transaction-form h4 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.transaction-form .form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.transaction-form label {
+    width: 150px;
+    margin-bottom: 0;
+    font-weight: bold;
+    display: inline-block;
+    text-align: right;
+}
+
+.transaction-form input,
+.transaction-form select,
+.transaction-form textarea {
+    flex: 1;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+    text-align: right;
+}
+
+.transaction-form textarea {
+    resize: none;
+}
+
+.transaction-form input:focus,
+.transaction-form select:focus,
+.transaction-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+}
+
+
+/* General Report Page */
+.report-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.report-item {
+    margin-bottom: 10px;
+}
+
+.report-item .btn {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+.transaction-item p {
+    text-align:center;
+}
+
+.report-item .btn:hover {
+    background-color: #06b8ffaf;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.report-header {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.transaction-summary {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.transaction-item {
+    flex: 1;
+    text-align: center;
+}
+
+.transaction-item p {
+    margin: 0;
+}
+
+.collapse-content {
+    display: none;
+    padding: 10px;
+}
+
+.collapse-content.show {
+    display: block;
+}
+
+.report-details {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.report-details p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+
+a.card-link{
+    margin-left: 20px;
+}
+/* Card link to make the entire card clickable */
+.card-link {
+    text-decoration: none;
+    color: inherit; /* Inherit text color from card */
+}
+
+.card-link:hover .card {
+    background-color: #e0f7fa; /* Slightly different color on hover */
+    transform: scale(1.02); /* Slight zoom effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}
+
+.card {
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    padding: 15px;
+    width: 300px;
+    text-align: right;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+
+/* Modal */
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 900; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal-content button {
+    margin: 10px;
+}
+/* Forget Pass */
+.forget-password-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.forget-password-container h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.forget-password-container .form-group {
+    margin-bottom: 20px;
+}
+
+.forget-password-container .form-control {
+    height: 50px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.forget-password-container .btn {
+    height: 50px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.forget-password-container .text-center a {
+    font-size: 14px;
+    color: #007bff;
+}
+
+
+/* reset pass */
+.reset-password-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.reset-password-container h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.reset-password-container .form-group {
+    margin-bottom: 20px;
+}
+
+.reset-password-container .form-control {
+    height: 50px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.reset-password-container .btn {
+    height: 50px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.reset-password-container .text-center a {
+    font-size: 14px;
+    color: #007bff;
+}
+
+/* show pass */
+
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input{
+    width: 270px;
+}
+.new-pass{
+    width: 338px;
+}
+.register-input{
+    width: 370px;
+}
+.input-wrapper .toggle-password {
+    position: absolute;
+    left: 10px; /* Positioning the icon closer to the input */
+    top: 35%; /* Center the icon vertically */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #333;
+}
+
+.input-wrapper .toggle-password i {
+    font-size: 18px;
+}
+.error-404{
+    color: #87cefa ;
+    text-decoration: none;
+}
+
+
+/* Footer */
+.content {
+    flex: 1; /* Allows the content area to take up remaining space */
+}
+
+.box {
+    margin: 100px;  /* Adds space outside the element */
+    padding: 20px; /* Adds space inside the element */
+}
+/* Footer styling */
+.footer {
+    background-color: #282c34; /* Dark background for the footer */
+    color: #e0e0e0; /* Light grey text color */
+    padding: 20px 0;
+    text-align: center; /* Center-align text */
+    width: 100%;
+    position: fixed;
+    bottom: 0; /* Align to the left edge */
+    z-index: 1000; /* Ensure the footer is above other content */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for a lifted effect */
+}
+
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto; /* Center container */
+    padding: 0 20px;
+}
+
+.footer-text {
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.5; /* Improved readability */
+    text-align: center;
+}
+
+.footer-text a {
+    color: #2194a8; /* Link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.footer-text a:hover {
+    color: #fff; /* Change color on hover */
+}
+
+/* Footer links styling */
+.footer-links {
+    margin-top: 10px;
+    text-align: center; /* Center-align footer links */
+}
+
+.footer-links .footer-link {
+    color: #e0e0e0; /* Link color */
+    text-decoration: none;
+    margin: 0 15px; /* Spacing between links */
+    font-weight: bold;
+    transition: color 0.3s, background-color 0.3s; /* Smooth transitions */
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.footer-links .footer-link:hover {
+    color: #ffffff; /* Lighter color on hover */
+    background-color: #4a90e2; /* Background color on hover */
+}
+
+/* Responsive design for footer */
+@media (max-width: 768px) {
+    .footer-links {
+        display: block;
+        margin-top: 10px;
+    }
+
+    .footer-links .footer-link {
+        display: block;
+        margin: 5px 0;
+    }
 }
