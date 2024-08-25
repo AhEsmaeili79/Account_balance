@@ -31,6 +31,13 @@ body {
     padding: 0;
 }
 
+img.icon-balance{
+    width: 75px;
+    height: 60px;
+}
+img.icon-balance:hover{
+    cursor: pointer;
+}
 
 body::before {
     content: "";
@@ -276,10 +283,6 @@ canvas {
         font-size: 1.2em;
     }
 
-    #detailsContent p {
-        font-size: 0.9em;
-    }
-
     #detailsContent table, #detailsContent th, #detailsContent td {
         font-size: 0.9em;
     }
@@ -300,7 +303,6 @@ canvas {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     margin: 10px;
     padding: 15px;
-    width: 300px;
     text-align: right;
 }
 
@@ -312,6 +314,56 @@ canvas {
 .card p {
     margin: 5px 0;
 }
+/* Existing styles... */
+
+@media (max-width: 440px) {
+    h1.center{
+        font-size: 20px;
+    }
+    select#yearSelector{
+        font-size: 12px;
+        width: 50px;
+        height: 30px;
+        padding: 2px;
+        top: -2px;
+    }
+    canvas#timeSeriesChart {
+        width: 300px !important;
+        margin: 0 auto; /* Center the canvas horizontally */
+        display: block; /* Ensures that margin auto works */
+    }
+    .card-link + .card-link {
+        margin-left: 1px;
+    }
+    #detailsContent p{
+        font-size: 0.9em;
+    }
+    .card{
+        width: 270px;
+    }
+    .category-container h4,h4.category-container {
+        font-size: 1rem;
+        margin: 0;
+        text-align: center;
+    }
+    .category-form form{
+        margin-top: 20px;
+        width: 80%;
+    }
+    .button-cat{
+        margin-top: 10px;
+        width: 75%;
+    }
+}
+
+/* profile_update */
+.latin-numbers {
+    direction: ltr;
+    unicode-bidi: plaintext;
+    font-family: "Qs Iranyekan",Arial, sans-serif; /* Optional: Apply a Latin-based font */
+    font-size: 10px;
+}
+
 
 
 /* Styling for the active button */
@@ -470,7 +522,7 @@ canvas {
 
 .add-transaction-btn {
     display: block;
-    margin: 30px auto;
+    margin: 20px auto;
     width: 100%;
 }
 
@@ -614,9 +666,7 @@ canvas {
 }
 
 
-a.card-link{
-    margin-left: 20px;
-}
+
 /* Card link to make the entire card clickable */
 .card-link {
     text-decoration: none;
@@ -636,7 +686,6 @@ a.card-link{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 10px;
     padding: 15px;
-    width: 300px;
     text-align: right;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
@@ -856,5 +905,19 @@ a.card-link{
     .footer-links .footer-link {
         display: block;
         margin: 5px 0;
+    }
+   
+}
+
+
+@media (min-width: 768px) {
+    .card-link + .card-link {
+        margin-left: 1.25rem; 
+    }
+    a.card-link{
+        margin-left: 20px;
+    }
+    .card{  
+        width: 300px;
     }
 }

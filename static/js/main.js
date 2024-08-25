@@ -144,12 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             display: true,
                             text: 'مقدار (تومان)',
                             font: {
+                                size: window.innerWidth < 440 ? 10 : 14,
                                 family: 'Qs Iranyekan' // for title
                             }
                         },
                         ticks: {
                             callback: value => formatNumber(value),
                             font: {
+                                size: window.innerWidth < 440 ? 10 : 14,
                                 family: 'Qs Iranyekan' // for each number
                             }
                         }
@@ -159,11 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             display: true,
                             text: 'ماه',
                             font: {
+                                size: window.innerWidth < 440 ? 10 : 14,
                                 family: 'Qs Iranyekan' // for title
                             }
                         },
                         ticks: {
                             font: {
+                                size: window.innerWidth < 440 ? 10 : 14,
                                 family: 'Qs Iranyekan' // for each month
                             }
                         }
@@ -173,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     legend: {
                         labels: {
                             font: {
+                                size: window.innerWidth < 440 ? 12 : 14,
                                 family: 'Qs Iranyekan' // for head title
                             }
                         }
@@ -299,30 +304,47 @@ function convertAllNumbersToArabic() {
 document.addEventListener('DOMContentLoaded', convertAllNumbersToArabic);
 
 
-// Modal Delete alert
-function showConfirmModal(transactionId) {
-    document.getElementById('modalTransactionId').value = transactionId;
-    document.getElementById('confirmModal').style.display = 'block';
-}
-
-function closeConfirmModal() {
-    document.getElementById('confirmModal').style.display = 'none';
-}
-
-
-function showEditModal(id, amount, date, time, category, description) {
-    document.getElementById('editTransactionId').value = id;
-    document.getElementById('editAmount').value = amount;
-    document.getElementById('editTransactionDate').value = date;
-    document.getElementById('editTransactionTime').value = time;
-    document.getElementById('editCategory').value = category;
-    document.getElementById('editDescription').value = description;
-    document.getElementById('editModal').style.display = 'block';
-}
-
-function closeEditModal() {
-    document.getElementById('editModal').style.display = 'none';
-}
+if (document.getElementById('transactions-container')) {
+    // Modal Delete alert
+    function showConfirmModal(transactionId) {
+        document.getElementById('modalTransactionId').value = transactionId;
+        document.getElementById('confirmModal').style.display = 'block';
+    }}
+if (document.getElementById('modalCatId')) {
+    function showDelete_Cat(CatId) {
+        document.getElementById('modalCatId').value = CatId;
+        document.getElementById('confirmCatModal').style.display = 'block';
+    }}
+    
+if (document.getElementById('transactions-container')) {
+    function closeConfirmModal() {
+        document.getElementById('confirmModal').style.display = 'none';
+    }}
+    
+if (document.getElementById('transactions-container')) {
+    function showEditModal(id, amount, date, time, category, description) {
+        document.getElementById('editTransactionId').value = id;
+        document.getElementById('editAmount').value = amount;
+        document.getElementById('editTransactionDate').value = date;
+        document.getElementById('editTransactionTime').value = time;
+        document.getElementById('editCategory').value = category;
+        document.getElementById('editDescription').value = description;
+        document.getElementById('editModal').style.display = 'block';
+    }}
+if (document.getElementById('editCatModal')) {
+    function showEditCatModal(cat_id ,category_name) {
+        document.getElementById('editCategoryId').value = cat_id;
+        document.getElementById('category_name').value = category_name;
+        document.getElementById('editCatModal').style.display = 'block';
+    }}
+if (document.getElementById('transactions-container')) {
+    function closeEditModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }}
+if (document.getElementById('editCatModal')) {
+    function closeEditModal() {
+        document.getElementById('editCatModal').style.display = 'none';
+    }}
 
 // // show pass
 // // Select both password fields and their corresponding toggle icons

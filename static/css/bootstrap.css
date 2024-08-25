@@ -3092,8 +3092,7 @@ input[type="button"].btn-block {
 .card-link:hover {
   text-decoration: none; }
 
-.card-link + .card-link {
-  margin-left: 1.25rem; }
+
 
 .card-header {
   padding: 0.75rem 1.25rem;
