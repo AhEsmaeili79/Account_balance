@@ -31,6 +31,13 @@ body {
     padding: 0;
 }
 
+img.icon-balance{
+    width: 80px;
+    height: 80px;
+}
+img.icon-balance:hover{
+    cursor: pointer;
+}
 
 body::before {
     content: "";
