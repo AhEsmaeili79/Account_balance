@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from modules.utils_acc import validate, authenticate_user, create_user, check_user_exists, send_password_reset_email,register_get_data,get_reset_password_date
 
@@ -98,6 +99,20 @@ def reset_password(request, uidb64, token):
             return redirect('index')
 
 
+@login_required(login_url='login')
+def update_profile(request):
+    user_id = request.POST.get('user_id')
+    f_name = request.POST.get('')
+    l_name = request.POST.get('')
+    email = request.POST.get('')
+    print(user_id,f_name,l_name,email)
+    user = get_object_or_404(User,id=user_id)
+
+
+    return render(request,'accounts/update-profile.html',)
+
+
+@login_required(login_url='login')
 def logout_view(request):
     logout(request)
     messages.success(request, "دوباره به ما سر بزنید")

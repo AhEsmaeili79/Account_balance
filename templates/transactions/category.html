@@ -23,7 +23,7 @@
             {% csrf_token %}
             <input type="hidden" name="user_id" value="{{ user.id }}">
             <input type="text" class="form-control d-inline-block w-75" name="cat_name" placeholder="نام دسته‌بندی جدید" required>
-            <button type="submit" class="btn btn-primary">اضافه کردن</button>
+            <button type="submit" class="btn btn-primary button-cat">اضافه کردن</button>
         </form>
         {% else %}
         <p>برای اضافه کردن دسته بندی ثبت نام یا ورود کنید</p>
@@ -83,17 +83,6 @@
         </form>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 {% endblock %}

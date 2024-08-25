@@ -17,45 +17,6 @@
             <button class="btn btn-secondary" id="showOutcome">هزینه‌ها</button>
         </div>
 
-        <!-- Income Transaction Samples -->
-        <div id="transactionList">
-            {% if transaction_income %}
-                {% for tr_income in transaction_income %}
-                    <div class="transaction-card income" id="income1">
-                        <p><strong>مبلغ: </strong>{{ tr_income.amount }} تومان</p>
-                        <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
-                        <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
-                        <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
-                        <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
-                        <button class="btn btn-warning btn-sm edit-btn" onclick="showEditModal({{ tr_income.id }}, '{{ tr_income.amount }}', '{{ tr_income.transaction_date }}', '{{ tr_income.transaction_time }}', '{{ tr_income.category_id.id }}', '{{ tr_income.description }}');">ویرایش</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="showConfirmModal({{ tr_income.id }});">حذف</button>
-                
-                        <!-- edit form -->
-                    </div>
-                {% endfor %}
-            {% endif %}
-            
-
-            {% if transaction_outcome %}
-                {% for tr_outcome in transaction_outcome %}
-                    <!-- Outcome Transaction Samples -->
-                    <div class="transaction-card outcome" id="outcome1">
-                        <p><strong>مبلغ: </strong>{{ tr_outcome.amount }} تومان</p>
-                        <p><strong>تاریخ: </strong>{{ tr_outcome.transaction_date }}</p>
-                        <p><strong>زمان: </strong>{{ tr_outcome.transaction_time }}</p>
-                        <p><strong>دسته‌بندی: </strong>{{ tr_outcome.category_id.category_name}}</p>
-                        <p><strong>توضیحات: </strong>{{ tr_outcome.description }}</p>
-                        <button class="btn btn-warning btn-sm edit-btn" onclick="showEditModal({{ tr_outcome.id }}, '{{ tr_outcome.amount }}', '{{ tr_outcome.transaction_date }}', '{{ tr_outcome.transaction_time }}', '{{ tr_outcome.category_id.id }}', '{{ tr_outcome.description }}');">ویرایش</button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="showConfirmModal({{ tr_outcome.id }});">حذف</button>
-                        
-                        <!-- edit form -->
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-        </div>
-
-
         <a href="{% url 'add_category' %}"><button class="btn btn-info add-transaction-btn">دسته بندی ها</button></a>
         <!-- Add Transaction Button -->
         <button class="btn btn-success add-transaction-btn" id="addTransactionBtn">افزودن تراکنش</button>
@@ -106,6 +67,47 @@
                 {% endif %}
             </div>
         </div>
+        <div class="mt-4"></div>
+        <!-- Income Transaction Samples -->
+        <div id="transactionList">
+            {% if transaction_income %}
+                {% for tr_income in transaction_income %}
+                    <div class="transaction-card income" id="income1">
+                        <p><strong>مبلغ: </strong>{{ tr_income.amount }} تومان</p>
+                        <p><strong>تاریخ: </strong>{{ tr_income.transaction_date }}</p>
+                        <p><strong>زمان: </strong>{{ tr_income.transaction_time }}</p>
+                        <p><strong>دسته‌بندی: </strong>{{ tr_income.category_id.category_name}}</p>
+                        <p><strong>توضیحات: </strong>{{ tr_income.description }}</p>
+                        <button class="btn btn-warning btn-sm edit-btn" onclick="showEditModal({{ tr_income.id }}, '{{ tr_income.amount }}', '{{ tr_income.transaction_date }}', '{{ tr_income.transaction_time }}', '{{ tr_income.category_id.id }}', '{{ tr_income.description }}');">ویرایش</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="showConfirmModal({{ tr_income.id }});">حذف</button>
+                
+                        <!-- edit form -->
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+
+            {% if transaction_outcome %}
+                {% for tr_outcome in transaction_outcome %}
+                    <!-- Outcome Transaction Samples -->
+                    <div class="transaction-card outcome" id="outcome1">
+                        <p><strong>مبلغ: </strong>{{ tr_outcome.amount }} تومان</p>
+                        <p><strong>تاریخ: </strong>{{ tr_outcome.transaction_date }}</p>
+                        <p><strong>زمان: </strong>{{ tr_outcome.transaction_time }}</p>
+                        <p><strong>دسته‌بندی: </strong>{{ tr_outcome.category_id.category_name}}</p>
+                        <p><strong>توضیحات: </strong>{{ tr_outcome.description }}</p>
+                        <button class="btn btn-warning btn-sm edit-btn" onclick="showEditModal({{ tr_outcome.id }}, '{{ tr_outcome.amount }}', '{{ tr_outcome.transaction_date }}', '{{ tr_outcome.transaction_time }}', '{{ tr_outcome.category_id.id }}', '{{ tr_outcome.description }}');">ویرایش</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="showConfirmModal({{ tr_outcome.id }});">حذف</button>
+                        
+                        <!-- edit form -->
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+
+
+        
     </div>
 </div>
 
