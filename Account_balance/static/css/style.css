@@ -321,6 +321,7 @@ canvas {
         display: block; /* Ensures that margin auto works */
         font-size: 10px !important;
     }
+    
 }
 
 
@@ -624,10 +625,6 @@ canvas {
     border-color: #117a8b;
 }
 
-
-a.card-link{
-    margin-left: 20px;
-}
 /* Card link to make the entire card clickable */
 .card-link {
     text-decoration: none;

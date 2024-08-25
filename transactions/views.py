@@ -55,6 +55,7 @@ def transaction(request):
                                                 transaction_time,transaction_category,
                                                 user_id,description)
                         transaction.save()
+                        messages.error(request,"تراکنش با موفقیت ثبت شد")
                         return redirect('add_transactions')
                     else:
                         messages.error(request,"این تراکنش در سیستم وجود دارد!")
