@@ -310,6 +310,16 @@ canvas {
 /* Existing styles... */
 
 @media (max-width: 397px) {
+    h1.center{
+        font-size: 20px;
+    }
+    select#yearSelector{
+        font-size: 12px;
+        width: 50px;
+        height: 30px;
+        padding: 2px;
+        top: -2px;
+    }
     canvas#timeSeriesChart {
         width: 300px !important;
         margin: 0 auto; /* Center the canvas horizontally */
