@@ -55,6 +55,7 @@ def signup_page(request):
 
 
 def forget_password(request):
+    logout_view(request)
     if not request.user.is_authenticated:
         if request.method == 'POST':
             email_or_username = request.POST.get('emailorusername')
@@ -98,6 +99,10 @@ def reset_password(request, uidb64, token):
             messages.error(request, 'برای تغییر کلمه عبور باید از اکانت خود خارج شوید.')
             return redirect('index')
 
+def arabic_to_latin_number(text):
+    arabic_to_latin_map = str.maketrans('٠١٢٣٤٥٦٧٨٩', '0123456789')
+    return text.translate(arabic_to_latin_map)
+
 
 @login_required(login_url='login')
 def update_profile(request):
@@ -106,16 +111,22 @@ def update_profile(request):
         userdata = {
             "firstname" : request.POST.get('first_name') or "",
             "lastname" : request.POST.get('last_name') or "",
-            "email" : request.POST.get('email') or "",
+            "email" : arabic_to_latin_number(request.POST.get('email')) or "",
         }
+
+        user_inf = User.objects.filter(id=user_id)
+        for i in user_inf:
+            email_user = i.email
         
         user_exists = check_user_exists('', userdata["email"])
         update_valid = validate(request=request, **userdata)
+        
+    
         if update_valid:
-            if not user_exists :
+            if not user_exists or email_user == userdata['email'] :
                 user = get_object_or_404(User,id=user_id)
-                user.first_name = userdata["f_name"]
-                user.last_name = userdata["l_name"]
+                user.first_name = userdata["firstname"]
+                user.last_name = userdata["lastname"]
                 user.email = userdata["email"]
                 user.save()
                 messages.success(request,"اطلاعات با موفقیت تغییر کرد")
@@ -125,6 +136,7 @@ def update_profile(request):
                 return redirect('update_profile')
         else:
             return redirect('update_profile')
+            
 
     return render(request,'accounts/update-profile.html')
 

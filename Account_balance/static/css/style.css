@@ -354,6 +354,7 @@ canvas {
     direction: ltr;
     unicode-bidi: plaintext;
     font-family: "Qs Iranyekan",Arial, sans-serif; /* Optional: Apply a Latin-based font */
+    font-size: 10px;
 }
 
 

@@ -3,6 +3,10 @@
     <div class="container d-flex justify-content-between align-items-center">
         <button class="toggle-button" aria-label="Toggle navigation">&#9776;</button>
         <div class="user-actions">
+            <div class="icon-container">
+                <a href="{% url 'index' %}"><img src="" alt="" srcset=""></a> <!-- Replace 'fa-cog' with the icon you want -->
+            </div>
+            <div class="ml-4"></div>
             {% if user.is_authenticated %}
                 <a href="{% url 'update_profile' %}" id="signupLink">مدیریت پروفایل</a>
                 <a href="{% url 'add_transactions' %}" id="signupLink">مدیریت تراکنش ها</a>
@@ -13,13 +17,12 @@
                 <a href="{% url 'signup' %}" id="signupLink">ثبت نام</a>
             {% endif %}
         </div>
+        
         <div>
             <div class="current-time" id="current-time">{{ persian_time }}</div>
             <div class="current-date" id="current-date">{{ persian_date }}</div>
-        </div> 
+        </div>
     </div>
 </div>
-
-
 
 <div class="mt-10"></div>
