@@ -276,10 +276,6 @@ canvas {
         font-size: 1.2em;
     }
 
-    #detailsContent p {
-        font-size: 0.9em;
-    }
-
     #detailsContent table, #detailsContent th, #detailsContent td {
         font-size: 0.9em;
     }
@@ -300,7 +296,6 @@ canvas {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     margin: 10px;
     padding: 15px;
-    width: 300px;
     text-align: right;
 }
 
@@ -319,9 +314,17 @@ canvas {
         width: 300px !important;
         margin: 0 auto; /* Center the canvas horizontally */
         display: block; /* Ensures that margin auto works */
-        font-size: 10px !important;
     }
     
+    .card-link + .card-link {
+        margin-left: 1px;
+    }
+    #detailsContent p{
+        font-size: 0.9em;
+    }
+    .card{
+        width: 270px;
+    }
 }
 
 
@@ -625,6 +628,8 @@ canvas {
     border-color: #117a8b;
 }
 
+
+
 /* Card link to make the entire card clickable */
 .card-link {
     text-decoration: none;
@@ -644,7 +649,6 @@ canvas {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin: 10px;
     padding: 15px;
-    width: 300px;
     text-align: right;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
@@ -864,5 +868,19 @@ canvas {
     .footer-links .footer-link {
         display: block;
         margin: 5px 0;
+    }
+   
+}
+
+
+@media (min-width: 768px) {
+    .card-link + .card-link {
+        margin-left: 1.25rem; 
+    }
+    a.card-link{
+        margin-left: 20px;
+    }
+    .card{  
+        width: 300px;
     }
 }
