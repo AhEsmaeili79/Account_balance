@@ -349,6 +349,13 @@ canvas {
     }
 }
 
+/* profile_update */
+.latin-numbers {
+    direction: ltr;
+    unicode-bidi: plaintext;
+    font-family: "Qs Iranyekan",Arial, sans-serif; /* Optional: Apply a Latin-based font */
+}
+
 
 
 /* Styling for the active button */

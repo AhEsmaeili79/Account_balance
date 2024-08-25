@@ -101,15 +101,32 @@ def reset_password(request, uidb64, token):
 
 @login_required(login_url='login')
 def update_profile(request):
-    user_id = request.POST.get('user_id')
-    f_name = request.POST.get('')
-    l_name = request.POST.get('')
-    email = request.POST.get('')
-    print(user_id,f_name,l_name,email)
-    user = get_object_or_404(User,id=user_id)
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        userdata = {
+            "firstname" : request.POST.get('first_name') or "",
+            "lastname" : request.POST.get('last_name') or "",
+            "email" : request.POST.get('email') or "",
+        }
+        
+        user_exists = check_user_exists('', userdata["email"])
+        update_valid = validate(request=request, **userdata)
+        if update_valid:
+            if not user_exists :
+                user = get_object_or_404(User,id=user_id)
+                user.first_name = userdata["f_name"]
+                user.last_name = userdata["l_name"]
+                user.email = userdata["email"]
+                user.save()
+                messages.success(request,"اطلاعات با موفقیت تغییر کرد")
+                return redirect('update_profile')
+            else:
+                messages.error(request,"این ایمیل قبلا استفاده شده است.")
+                return redirect('update_profile')
+        else:
+            return redirect('update_profile')
 
-
-    return render(request,'accounts/update-profile.html',)
+    return render(request,'accounts/update-profile.html')
 
 
 @login_required(login_url='login')

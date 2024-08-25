@@ -2,8 +2,9 @@
 {% load static %}
 {% block content %}
 <div class="container">
-    <h2 class="text-center mb-4">به‌روزرسانی پروفایل</h2>
-    <form method="post" action="{% url 'update_profile' %}">
+    
+    <form method="post" class="signup-container" action="{% url 'update_profile' %}">
+        <h2 class="text-center mb-4">به‌روزرسانی پروفایل</h2>
         {% csrf_token %}
         <div class="form-group">
             <input type="hidden" name="user_id" value="{{user.id}}">
@@ -16,7 +17,7 @@
         </div>
         <div class="form-group">
             <label for="email">ایمیل</label>
-            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+            <input type="email" class="form-control latin-numbers" id="email" name="email" value="{{ user.email }}" required>
         </div>
         <div class="form-group">
             <label for="password">رمز عبور</label>
