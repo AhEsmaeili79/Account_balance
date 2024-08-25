@@ -63,7 +63,12 @@ Follow these steps to set up and run the project:
 
 ## Screenshot
 
-![Screenshot of the Application](path-to-your-screenshot.png)
+![Screenshot of Homepage](https://github.com/AmrhsnEs/Certificate/blob/main/Screenshot%202024-08-25%20214544.png?raw=true)
+
+
+![Screenshot of Transation](https://github.com/AmrhsnEs/Certificate/blob/main/Screenshot%202024-08-25%20221844.png)
+
+
 
 ## License
 
