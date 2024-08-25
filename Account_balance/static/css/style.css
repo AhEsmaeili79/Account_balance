@@ -32,8 +32,8 @@ body {
 }
 
 img.icon-balance{
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 60px;
 }
 img.icon-balance:hover{
     cursor: pointer;
