@@ -312,6 +312,17 @@ canvas {
 .card p {
     margin: 5px 0;
 }
+/* Existing styles... */
+
+@media (max-width: 397px) {
+    canvas#timeSeriesChart {
+        width: 300px !important;
+        margin: 0 auto; /* Center the canvas horizontally */
+        display: block; /* Ensures that margin auto works */
+        font-size: 10px !important;
+    }
+}
+
 
 
 /* Styling for the active button */

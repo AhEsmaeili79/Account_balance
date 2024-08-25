@@ -144,12 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             display: true,
                             text: 'مقدار (تومان)',
                             font: {
+                                size: window.innerWidth < 400 ? 10 : 14,
                                 family: 'Qs Iranyekan' // for title
                             }
                         },
                         ticks: {
                             callback: value => formatNumber(value),
                             font: {
+                                size: window.innerWidth < 400 ? 10 : 14,
                                 family: 'Qs Iranyekan' // for each number
                             }
                         }
@@ -159,11 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             display: true,
                             text: 'ماه',
                             font: {
+                                size: window.innerWidth < 400 ? 10 : 14,
                                 family: 'Qs Iranyekan' // for title
                             }
                         },
                         ticks: {
                             font: {
+                                size: window.innerWidth < 400 ? 10 : 14,
                                 family: 'Qs Iranyekan' // for each month
                             }
                         }
@@ -173,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     legend: {
                         labels: {
                             font: {
+                                size: window.innerWidth < 400 ? 12 : 14,
                                 family: 'Qs Iranyekan' // for head title
                             }
                         }
