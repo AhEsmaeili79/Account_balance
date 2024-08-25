@@ -19,8 +19,8 @@ Follow these steps to set up and run the project:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/yourusername/your-repo.git
-    cd your-repo
+    git clone https://github.com/AmrhsnEs/Account_balance
+    cd Account_balance
     ```
 
 2. **Set Up a Virtual Environment**:
@@ -63,16 +63,23 @@ Follow these steps to set up and run the project:
 
 ## Screenshot
 
-![Screenshot of Homepage](https://github.com/AmrhsnEs/Certificate/blob/main/Screenshot%202024-08-25%20214544.png?raw=true)
+![Screenshot of Homepage](https://github.com/AmrhsnEs/Certificate/blob/main/screencapture-blnce-pythonanywhere-2024-08-25-22_24_30.png?raw=true)
 
 
-![Screenshot of Transation](https://github.com/AmrhsnEs/Certificate/blob/main/Screenshot%202024-08-25%20221844.png)
+![Screenshot of Transation](https://github.com/AmrhsnEs/Certificate/blob/main/screencapture-blnce-pythonanywhere-transactions-2024-08-25-22_25_08.png?raw=true)
+
+![Screenshot of add Transation ](https://github.com/AmrhsnEs/Certificate/blob/main/screencapture-blnce-pythonanywhere-transactions-2024-08-25-22_26_10.png?raw=true)
+
+
+![Screenshot of Categories](https://github.com/AmrhsnEs/Certificate/blob/main/screencapture-blnce-pythonanywhere-transactions-category-2024-08-25-22_25_51.png?raw=true)
+
+
+![Screenshot of signup](https://github.com/AmrhsnEs/Certificate/blob/main/screencapture-blnce-pythonanywhere-accounts-signup-2024-08-25-22_29_33.png?raw=true)
+
+![Screenshot of General Repost](https://github.com/AmrhsnEs/Certificate/blob/main/screencapture-blnce-pythonanywhere-reports-generalreport-2024-08-25-22_26_41.png?raw=true)
 
 
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
@@ -87,5 +94,5 @@ Contributions are welcome! Feel free to open issues or submit pull requests for 
 
 ## Contact
 
-For further information or support, please open an issue on this repository or contact via [email@example.com](mailto:email@example.com).
+For further information or support, please open an issue on this repository or contact via [amrhsn.es@gmail.com](mailto:amrhsn.es@gmail.com).
 
