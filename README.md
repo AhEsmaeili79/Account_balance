@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Account Balance Management System** is a comprehensive web application built with Django that allows users to manage their financial transactions effectively. This system features a user-friendly dashboard, profile management, transaction tracking, custom and default categories, and detailed financial reporting. It utilizes Bootstrap for styling and JavaScript for enhanced interactivity.
+The **Account Balance Management System** is a comprehensive,Responsive web application built with Django that allows users to manage their financial transactions effectively. This system features a user-friendly dashboard, profile management, transaction tracking, custom and default categories, and detailed financial reporting. It utilizes Bootstrap for styling and JavaScript for enhanced interactivity.
 
 ### Features
 
@@ -12,6 +12,7 @@ The **Account Balance Management System** is a comprehensive web application bui
 - **Category Management**: Add custom categories and use default categories for organizing transactions.
 - **Transaction Handling**: Record transactions with details such as amount, category, type (income or outcome), and date/time.
 - **General Report**: View reports showing income and expenses by year, month, and category. Interactive charts on the home page link to detailed monthly reports.
+- **Chart Report**: It's fully responsive and you can click on each month to see the details of that month with Income and Outcome.
 
 ## Installation
 
