@@ -4,4 +4,6 @@ django-jalali-date==1.1.2
 djangorestframework==3.9.0
 persiantools==4.0.2
 pytz==2024.1
+psycopg2==2.9.9
+psycopg2-binary==2.9.9
 mysqlclient==2.2.4
