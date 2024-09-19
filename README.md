@@ -95,5 +95,5 @@ Contributions are welcome! Feel free to open issues or submit pull requests for 
 
 ## Contact
 
-For further information or support, please open an issue on this repository or contact via [amrhsn.es@gmail.com](mailto:amrhsn.es@gmail.com).
+For further information or support, please open an issue on this repository or contact via [ah.esmaeili.79@gmail.com](mailto:ah.esmaeili.79@gmail.com).
 
